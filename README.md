@@ -1,5 +1,7 @@
 # Social Development Centre
 
+### Master [![CircleCI](https://circleci.com/gh/uwblueprint/sdc-web/tree/master.svg?style=shield)](https://circleci.com/gh/uwblueprint/sdc-web/tree/master)
+
 ## Introduction
 
 This is the web client portion of the Social Development Centre Project for [UW Blueprint](https://https://uwblueprint.org/).
