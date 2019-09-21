@@ -8,13 +8,20 @@ This is the web client portion of the Social Development Centre Project for [UW 
 
 This project was started in Fall 2019 and is currently in development.
 
-**Project Lead:** Daniel Williams
+**Project Lead:** Daniel Williams - [@ddgwilli](https://github.com/ddgwilli)
 
-**Project Manager:** Leonard Zhang
+**Project Manager:** Leonard Zhang - [@leonardz](https://github.com/leonardz)
 
-**Designers:** Annie Xu, Carmen Lee
+**Designers:** 
+* Annie Xu
+* Carmen Lee
 
-**Developers:** Lee Ma, Daniel Peng, Ritika Rao, Megan Niu, Jayant Shrivastava
+**Developers:** 
+* Lee Ma - [@lee-ma](https://github.com/lee-ma)
+* Daniel Peng - [@danielpeng2](https://github.com/danielpeng2)
+* Ritika Rao
+* Megan Niu - [@meganniu](https://github.com/meganniu)
+* Jayant Shrivastava - [@jayshrivastava](https://github.com/jayshrivastava)
 
 ## Onboarding
 
