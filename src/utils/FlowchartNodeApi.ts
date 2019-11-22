@@ -1,21 +1,28 @@
 import { useAxios } from './UseAxios';
+import { HttpMethods } from './HttpMethods';
 
-export const useGetFlowchartNode = (flowchartNodeId) => {
+export const useGetFlowchartNodeApi = (flowchartNodeId: number) => {
   const urlPath = `/flowchart_node/${flowchartNodeId}`;
-  return useAxios('GET', urlPath);
+  return useAxios(HttpMethods.GET, urlPath, null);
 };
 
-export const useUpdateFlowchartNode = (flowchartNodeId, updateContent) => {
+export const useUpdateFlowchartNodeApi = (
+  flowchartNodeId: number,
+  updateContent: number
+) => {
   const urlPath = `/flowchart_node/${flowchartNodeId}`;
-  return useAxios('PUT', urlPath, updateContent);
+  return useAxios(HttpMethods.PUT, urlPath, updateContent);
 };
 
-export const useSwapFlowchartNodes = (flowchartNodeId1, flowchartNodeId2) => {
+export const useSwapFlowchartNodesApi = (
+  flowchartNodeId1: number,
+  flowchartNodeId2: number
+) => {
   const urlPath = `/flowchart/${flowchartNodeId1}/${flowchartNodeId2}`;
-  return useAxios('PUT', urlPath);
+  return useAxios(HttpMethods.PUT, urlPath, null);
 };
 
-export const useDeleteFlowchartNode = (flowchartId) => {
+export const useDeleteFlowchartNodeApi = (flowchartId: number) => {
   const urlPath = `/flowchart/${flowchartId}`;
-  return useAxios('DELETE', urlPath);
+  return useAxios(HttpMethods.DELETE, urlPath, null);
 };

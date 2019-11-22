@@ -1,6 +1,7 @@
-import useAxios from './UseAxios';
+import { useAxios } from './UseAxios';
+import { HttpMethods } from './HttpMethods';
 
-export const sendCredentials = (username, password) => {
+export const useAuthentication = (username: string, password: string) => {
   const urlPath = '/login/';
-  return useAxios('POST', urlPath, { username, password });
+  return useAxios(HttpMethods.POST, urlPath, { username, password });
 };

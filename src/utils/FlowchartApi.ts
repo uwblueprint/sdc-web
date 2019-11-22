@@ -1,21 +1,25 @@
-import useAxios from './UseAxios';
+import { useAxios } from './UseAxios';
+import { HttpMethods } from './HttpMethods';
 
-export const useGetFlowcharts = () => {
+export const useGetFlowchartsApi = () => {
   const urlPath = '/flowchart/';
-  return useAxios('GET', urlPath);
+  return useAxios(HttpMethods.GET, urlPath, null);
 };
 
-export const useGetFlowchart = (flowchartId) => {
+export const useGetFlowchartApi = (flowchartId: number) => {
   const urlPath = `/flowchart/${flowchartId}`;
-  return useAxios('GET', urlPath);
+  return useAxios(HttpMethods.GET, urlPath, null);
 };
 
-export const useUpdateFlowchart = (flowchartId, updateContent) => {
+export const useUpdateFlowchartApi = (
+  flowchartId: number,
+  updateContent: number
+) => {
   const urlPath = `/flowchart/${flowchartId}`;
-  return useAxios('PUT', urlPath, updateContent);
+  return useAxios(HttpMethods.PUT, urlPath, updateContent);
 };
 
-export const useDeleteFlowchart = (flowchartId) => {
+export const useDeleteFlowchartApi = (flowchartId: number) => {
   const urlPath = `/flowchart/${flowchartId}`;
-  return useAxios('DELETE', urlPath);
+  return useAxios(HttpMethods.DELETE, urlPath, null);
 };
