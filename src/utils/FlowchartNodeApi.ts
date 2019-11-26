@@ -8,9 +8,16 @@ export interface SwapNodesRequest {
   id_b: number;
 }
 
-export interface CreateFlowcharNodeRequest {
+export interface CreateFlowchartNodeRequest {
   prev_id: number;
   is_child: boolean;
+  text: string;
+  header: string;
+  button_text: string;
+  next_question: string;
+}
+
+export interface UpdateFlowchartNodeRequest {
   text: string;
   header: string;
   button_text: string;
@@ -28,12 +35,12 @@ export const useGetFlowchartNodeApi = (
 
 export const useUpdateFlowchartNodeApi = (
   flowchartNodeId: number,
-  updateContent: number
+  request: UpdateFlowchartNodeRequest
 ): ApiHookResponse =>
   useAxios(
     HttpMethods.PUT,
     `${baseUrl}/flowchart_node/${flowchartNodeId}`,
-    updateContent
+    request
   );
 
 export const useSwapFlowchartNodesApi = (
