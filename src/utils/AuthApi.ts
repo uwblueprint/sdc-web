@@ -1,7 +1,12 @@
-import { useAxios } from './UseAxios';
+import { useAxios, ApiHookResponse } from './UseAxios';
 import { HttpMethods } from './HttpMethods';
 
-export const useAuthentication = (username: string, password: string) => {
-  const urlPath = '/login/';
-  return useAxios(HttpMethods.POST, urlPath, { username, password });
-};
+const baseUrl = process.env.REACT_APP_API_URL;
+
+export const useAuthenticationApi = (
+  email: string,
+  password: string
+): ApiHookResponse =>
+  useAxios(HttpMethods.GET, `${baseUrl}/login`, {
+    user: { email, password },
+  });

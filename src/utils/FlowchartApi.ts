@@ -1,25 +1,23 @@
-import { useAxios } from './UseAxios';
+import { useAxios, ApiHookResponse } from './UseAxios';
 import { HttpMethods } from './HttpMethods';
 
-export const useGetFlowchartsApi = () => {
-  const urlPath = '/flowchart/';
-  return useAxios(HttpMethods.GET, urlPath, null);
-};
+const baseUrl = process.env.REACT_APP_API_URL;
 
-export const useGetFlowchartApi = (flowchartId: number) => {
-  const urlPath = `/flowchart/${flowchartId}`;
-  return useAxios(HttpMethods.GET, urlPath, null);
-};
+export const useGetFlowchartsApi = (): ApiHookResponse =>
+  useAxios(HttpMethods.GET, `${baseUrl}/flowcharts`, null);
+
+export const useGetFlowchartApi = (flowchartId: number): ApiHookResponse =>
+  useAxios(HttpMethods.GET, `${baseUrl}/flowchart/${flowchartId}`, null);
 
 export const useUpdateFlowchartApi = (
   flowchartId: number,
   updateContent: number
-) => {
-  const urlPath = `/flowchart/${flowchartId}`;
-  return useAxios(HttpMethods.PUT, urlPath, updateContent);
-};
+): ApiHookResponse =>
+  useAxios(
+    HttpMethods.PUT,
+    `${baseUrl}/flowchart/${flowchartId}`,
+    updateContent
+  );
 
-export const useDeleteFlowchartApi = (flowchartId: number) => {
-  const urlPath = `/flowchart/${flowchartId}`;
-  return useAxios(HttpMethods.DELETE, urlPath, null);
-};
+export const useDeleteFlowchartApi = (flowchartId: number): ApiHookResponse =>
+  useAxios(HttpMethods.DELETE, `${baseUrl}/flowchart/${flowchartId}`, null);

@@ -42,14 +42,11 @@ const successfulDeleteResponse: ApiResponse = {
   headers: httpHeaders,
 };
 
-const url = 'https://someapi';
-const urlPath = '/test';
+const url = `${process.env.REACT_APP_API_URL}/test`;
 
 describe('useAxios', () => {
   it('returns isLoading while waiting for response', () => {
-    const { result } = renderHook(() =>
-      useAxios(HttpMethods.GET, urlPath, null)
-    );
+    const { result } = renderHook(() => useAxios(HttpMethods.GET, url, null));
 
     expect(result.current.isLoading).toEqual(true);
     expect(result.current.isSuccessful).toEqual(false);
@@ -58,11 +55,11 @@ describe('useAxios', () => {
   it('returns data if successful', async () => {
     const mock = new MockAdapter(axios);
     mock
-      .onGet(`${url}${urlPath}`)
+      .onGet(url)
       .reply(successfulGetResponse.status, getResponseData, httpHeaders);
 
     const { result, waitForNextUpdate } = renderHook(() =>
-      useAxios(HttpMethods.GET, urlPath, null)
+      useAxios(HttpMethods.GET, url, null)
     );
 
     await waitForNextUpdate();
@@ -74,11 +71,9 @@ describe('useAxios', () => {
 
   it('indicates request is unsuccessful if response status is not 200', async () => {
     const mock = new MockAdapter(axios);
-    mock
-      .onAny(`${url}${urlPath}`)
-      .reply(erroneousResponse.status, null, httpHeaders);
+    mock.onAny(url).reply(erroneousResponse.status, null, httpHeaders);
     const { result, waitForNextUpdate } = renderHook(() =>
-      useAxios(HttpMethods.GET, urlPath, null)
+      useAxios(HttpMethods.GET, url, null)
     );
 
     await waitForNextUpdate();
@@ -91,10 +86,10 @@ describe('useAxios', () => {
   it('handles put requests that sends request data', async () => {
     const mock = new MockAdapter(axios);
     mock
-      .onAny(`${url}${urlPath}`)
+      .onAny(url)
       .reply(successfulPutResponse.status, putRequestData, httpHeaders);
     const { result, waitForNextUpdate } = renderHook(() =>
-      useAxios(HttpMethods.PUT, urlPath, putRequestData)
+      useAxios(HttpMethods.PUT, url, putRequestData)
     );
 
     await waitForNextUpdate();
@@ -107,10 +102,10 @@ describe('useAxios', () => {
   it('handles post requests that sends request data', async () => {
     const mock = new MockAdapter(axios);
     mock
-      .onAny(`${url}${urlPath}`)
+      .onAny(url)
       .reply(successfulPostResponse.status, postRequestData, httpHeaders);
     const { result, waitForNextUpdate } = renderHook(() =>
-      useAxios(HttpMethods.POST, urlPath, postRequestData)
+      useAxios(HttpMethods.POST, url, postRequestData)
     );
 
     await waitForNextUpdate();
@@ -122,11 +117,9 @@ describe('useAxios', () => {
 
   it('handles delete requests', async () => {
     const mock = new MockAdapter(axios);
-    mock
-      .onAny(`${url}${urlPath}`)
-      .reply(successfulDeleteResponse.status, null, httpHeaders);
+    mock.onAny(url).reply(successfulDeleteResponse.status, null, httpHeaders);
     const { result, waitForNextUpdate } = renderHook(() =>
-      useAxios(HttpMethods.DELETE, urlPath, null)
+      useAxios(HttpMethods.DELETE, url, null)
     );
 
     await waitForNextUpdate();

@@ -8,15 +8,20 @@ export interface ApiResponse {
   headers: Headers;
 }
 
+export interface ApiHookResponse {
+  response: ApiResponse | null;
+  isLoading: boolean;
+  isSuccessful: boolean;
+}
+
 export const useAxios = (
   httpMethod: HttpMethods,
-  urlPath: string,
+  url: string,
   requestData: any
-) => {
-  const url = 'https://someapi';
+): ApiHookResponse => {
   const initialApiResponse: ApiResponse = {
     data: null,
-    status: null,
+    status: -1,
     headers: new Headers(),
   };
   const [response, setResponse] = useState(initialApiResponse);
@@ -24,17 +29,10 @@ export const useAxios = (
   const [isSuccessful, setIsSuccessful] = useState(false);
   const axiosConfig: AxiosRequestConfig = {
     method: httpMethod,
-    url: url + urlPath,
+    url,
     responseType: 'json',
-    data: null,
+    data: requestData,
   };
-
-  if (
-    (httpMethod === HttpMethods.PUT || httpMethod === HttpMethods.POST) &&
-    requestData !== null
-  ) {
-    axiosConfig.data = requestData;
-  }
 
   useEffect(() => {
     async function callApi() {
@@ -48,23 +46,15 @@ export const useAxios = (
           setIsLoading(false);
           setIsSuccessful(true);
         })
-        .catch(
-          (error: {
-            response: {
-              data: Object;
-              status: number;
-              headers: Headers;
-            };
-          }) => {
-            setResponse({
-              data: error.response ? error.response.data : null,
-              status: error.response ? error.response.status : -1,
-              headers: error.response ? error.response.headers : new Headers(),
-            });
-            setIsLoading(false);
-            setIsSuccessful(false);
-          }
-        );
+        .catch((error: { response: ApiResponse }) => {
+          setResponse({
+            data: error.response ? error.response.data : null,
+            status: error.response ? error.response.status : -1,
+            headers: error.response ? error.response.headers : new Headers(),
+          });
+          setIsLoading(false);
+          setIsSuccessful(false);
+        });
     }
     callApi();
     // eslint-disable-next-line react-hooks/exhaustive-deps

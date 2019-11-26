@@ -1,28 +1,56 @@
-import { useAxios } from './UseAxios';
+import { useAxios, ApiHookResponse } from './UseAxios';
 import { HttpMethods } from './HttpMethods';
 
-export const useGetFlowchartNodeApi = (flowchartNodeId: number) => {
-  const urlPath = `/flowchart_node/${flowchartNodeId}`;
-  return useAxios(HttpMethods.GET, urlPath, null);
-};
+const baseUrl = process.env.REACT_APP_API_URL;
+
+export interface SwapNodesRequest {
+  id_a: number;
+  id_b: number;
+}
+
+export interface CreateFlowcharNodeRequest {
+  prev_id: number;
+  is_child: boolean;
+  text: string;
+  header: string;
+  button_text: string;
+  next_question: string;
+}
+
+export const useGetFlowchartNodeApi = (
+  flowchartNodeId: number
+): ApiHookResponse =>
+  useAxios(
+    HttpMethods.GET,
+    `${baseUrl}/flowchart_node/${flowchartNodeId}`,
+    null
+  );
 
 export const useUpdateFlowchartNodeApi = (
   flowchartNodeId: number,
   updateContent: number
-) => {
-  const urlPath = `/flowchart_node/${flowchartNodeId}`;
-  return useAxios(HttpMethods.PUT, urlPath, updateContent);
-};
+): ApiHookResponse =>
+  useAxios(
+    HttpMethods.PUT,
+    `${baseUrl}/flowchart_node/${flowchartNodeId}`,
+    updateContent
+  );
 
 export const useSwapFlowchartNodesApi = (
-  flowchartNodeId1: number,
-  flowchartNodeId2: number
-) => {
-  const urlPath = `/flowchart/${flowchartNodeId1}/${flowchartNodeId2}`;
-  return useAxios(HttpMethods.PUT, urlPath, null);
-};
+  request: SwapNodesRequest
+): ApiHookResponse =>
+  useAxios(HttpMethods.PUT, `${baseUrl}/flowchart_node/swap`, request);
 
-export const useDeleteFlowchartNodeApi = (flowchartId: number) => {
-  const urlPath = `/flowchart/${flowchartId}`;
-  return useAxios(HttpMethods.DELETE, urlPath, null);
-};
+export const useDeleteFlowchartNodeApi = (
+  flowchartId: number
+): ApiHookResponse =>
+  useAxios(
+    HttpMethods.DELETE,
+    `${baseUrl}/flowchart_node/${flowchartId}`,
+    null
+  );
+
+export const useCreateFlowchartNodeApi = (
+  request: CreateFlowcharNodeRequest
+): ApiHookResponse =>
+  useAxios(HttpMethods.POST, `${baseUrl}/flowchart_node`, request);
