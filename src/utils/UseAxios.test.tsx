@@ -21,9 +21,6 @@ describe('useAxios', () => {
     expect(result.current.isSuccessful).toEqual(false);
 
     await waitForNextUpdate(); // Wait for axios to recieve a reply.
-
-    expect(result.current.isLoading).toEqual(false);
-    expect(result.current.isSuccessful).toEqual(true);
   });
 
   it('returns data if successful', async () => {

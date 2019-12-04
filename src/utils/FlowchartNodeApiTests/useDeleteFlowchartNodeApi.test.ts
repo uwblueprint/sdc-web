@@ -47,4 +47,22 @@ describe('useDeleteFlowchartNodeApi', () => {
     expect(result.current.isLoading).toEqual(false);
     expect(result.current.isSuccessful).toEqual(false);
   });
+  it('is able to indicate it is loading while waiting for a response', async () => {
+    const flowchartNodeId = 100;
+    const url = `${baseUrl}/flowchart_node/${flowchartNodeId}`;
+
+    const successfulDeleteFlowchartNodeResponse = null;
+
+    const mock = new MockAdapter(axios);
+    mock.onAny(url).reply(200, successfulDeleteFlowchartNodeResponse);
+
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useDeleteFlowchartNodeApi(flowchartNodeId)
+    );
+
+    expect(result.current.isLoading).toEqual(true);
+    expect(result.current.isSuccessful).toEqual(false);
+
+    await waitForNextUpdate(); // Wait for axios to recieve a reply.
+  });
 });

@@ -63,4 +63,39 @@ describe('useGetFlowchartsApi', () => {
     expect(result.current.isLoading).toEqual(false);
     expect(result.current.isSuccessful).toEqual(false);
   });
+  it('is able to indicate it is loading while waiting for a response', async () => {
+    const url = `${baseUrl}/flowcharts`;
+
+    const successfulGetFlowchartsResponse = {
+      flowcharts: [
+        {
+          id: 1,
+          title: 'chart 1',
+          description: 'this chart is about abc',
+          height: 3,
+          root_id: 1,
+          deleted: false,
+        },
+        {
+          id: 2,
+          title: 'chart 2',
+          description: 'this chart is about def',
+          height: 3,
+          root_id: 1,
+          deleted: false,
+        },
+      ],
+    };
+
+    const mock = new MockAdapter(axios);
+    mock.onAny(url).reply(200, successfulGetFlowchartsResponse);
+
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useGetFlowchartsApi()
+    );
+
+    expect(result.current.isLoading).toEqual(true);
+    expect(result.current.isSuccessful).toEqual(false);
+    await waitForNextUpdate(); // Wait for axios to recieve a reply.
+  });
 });
