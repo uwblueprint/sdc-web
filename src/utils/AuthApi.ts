@@ -12,4 +12,4 @@ export interface AuthenticationRequest {
 
 export const useAuthenticationApi = (
   request: AuthenticationRequest
-): ApiHookResponse => useAxios(HttpMethods.GET, `${baseUrl}/login`, request);
+): ApiHookResponse => useAxios(HttpMethods.POST, `${baseUrl}/login`, request);

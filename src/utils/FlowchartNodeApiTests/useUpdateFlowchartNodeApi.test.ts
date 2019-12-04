@@ -13,10 +13,12 @@ describe('useUpdateFlowchartNodeApi', () => {
     const flowchartNodeId = 100;
     const url = `${baseUrl}/flowchart_node/${flowchartNodeId}`;
     const updateFlowchartNodeRequest: UpdateFlowchartNodeRequest = {
-      text: 'mock text',
-      header: 'mock header',
-      button_text: 'mock button text',
-      next_question: 'mock next question',
+      node: {
+        text: 'mock text',
+        header: 'mock header',
+        button_text: 'mock button text',
+        next_question: 'mock next question',
+      },
     };
 
     const successfulUpdateFlowchartNodeResponse = {
@@ -52,10 +54,12 @@ describe('useUpdateFlowchartNodeApi', () => {
     const url = `${baseUrl}/flowchart_node/${flowchartNodeId}`;
 
     const updateFlowchartNodeRequest: UpdateFlowchartNodeRequest = {
-      text: 'mock text',
-      header: 'mock header',
-      button_text: 'mock button text',
-      next_question: 'mock next question',
+      node: {
+        text: 'mock text',
+        header: 'mock header',
+        button_text: 'mock button text',
+        next_question: 'mock next question',
+      },
     };
 
     const failedUpdateFlowchartNodeResponse = null;
@@ -79,10 +83,12 @@ describe('useUpdateFlowchartNodeApi', () => {
     const flowchartNodeId = 100;
     const url = `${baseUrl}/flowchart_node/${flowchartNodeId}`;
     const updateFlowchartNodeRequest: UpdateFlowchartNodeRequest = {
-      text: 'mock text',
-      header: 'mock header',
-      button_text: 'mock button text',
-      next_question: 'mock next question',
+      node: {
+        text: 'mock text',
+        header: 'mock header',
+        button_text: 'mock button text',
+        next_question: 'mock next question',
+      },
     };
 
     const successfulUpdateFlowchartNodeResponse = {

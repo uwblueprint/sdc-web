@@ -11,17 +11,21 @@ export interface SwapNodesRequest {
 export interface CreateFlowchartNodeRequest {
   prev_id: number;
   is_child: boolean;
-  text: string;
-  header: string;
-  button_text: string;
-  next_question: string;
+  node: {
+    text: string;
+    header: string;
+    button_text: string;
+    next_question: string;
+  };
 }
 
 export interface UpdateFlowchartNodeRequest {
-  text: string;
-  header: string;
-  button_text: string;
-  next_question: string;
+  node: {
+    text: string;
+    header: string;
+    button_text: string;
+    next_question: string;
+  };
 }
 
 export const useGetFlowchartNodeApi = (

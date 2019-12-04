@@ -14,10 +14,12 @@ describe('useCreateFlowchartNodeApi', () => {
     const createFlowchartNodeRequest: CreateFlowchartNodeRequest = {
       prev_id: 1,
       is_child: true,
-      text: 'mock text',
-      header: 'mock header',
-      button_text: 'mock button text',
-      next_question: 'mock next question',
+      node: {
+        text: 'mock text',
+        header: 'mock header',
+        button_text: 'mock button text',
+        next_question: 'mock next question',
+      },
     };
 
     const successfulCreateFlowchartNodeResponse = {
@@ -51,10 +53,12 @@ describe('useCreateFlowchartNodeApi', () => {
     const createFlowchartNodeRequest: CreateFlowchartNodeRequest = {
       prev_id: 1,
       is_child: true,
-      text: 'mock text',
-      header: 'mock header',
-      button_text: 'mock button text',
-      next_question: 'mock next question',
+      node: {
+        text: 'mock text',
+        header: 'mock header',
+        button_text: 'mock button text',
+        next_question: 'mock next question',
+      },
     };
 
     const failedCreateFlowchartNodeResponse = null;
@@ -78,10 +82,12 @@ describe('useCreateFlowchartNodeApi', () => {
     const createFlowchartNodeRequest: CreateFlowchartNodeRequest = {
       prev_id: 1,
       is_child: true,
-      text: 'mock text',
-      header: 'mock header',
-      button_text: 'mock button text',
-      next_question: 'mock next question',
+      node: {
+        text: 'mock text',
+        header: 'mock header',
+        button_text: 'mock button text',
+        next_question: 'mock next question',
+      },
     };
 
     const successfulCreateFlowchartNodeResponse = {
