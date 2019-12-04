@@ -1,34 +1,24 @@
 import { renderHook } from '@testing-library/react-hooks';
-import { useAuthenticationApi } from './AuthApi';
+import { useAuthenticationApi, AuthenticationRequest } from '../AuthApi';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 
-const email = 'testEmail@email.com';
-const password = 'TestPassword';
-
-const httpHeaders = new Headers({
-  'Content-Type': 'json',
-  'Project-Name': 'sdc',
-});
-
-const getRequestData = {
-  user: { email, password },
-};
-
-const baseUrl = `${process.env.REACT_APP_API_URL}`;
-
 describe('useAuthenticationApi', () => {
   it('is able to authenticate user', async () => {
+    const baseUrl = `${process.env.REACT_APP_API_URL}`;
+
+    const getRequestData: AuthenticationRequest = {
+      user: { email: 'testEmail@email.com', password: 'TestPassword' },
+    };
+
     const url = `${baseUrl}/login`;
     const useAuthSuccessfulResponse = { verified: true };
 
     const mock = new MockAdapter(axios);
-    mock
-      .onAny(url, getRequestData)
-      .reply(200, useAuthSuccessfulResponse, httpHeaders);
+    mock.onAny(url, getRequestData).reply(200, useAuthSuccessfulResponse);
 
     const { result, waitForNextUpdate } = renderHook(() =>
-      useAuthenticationApi(email, password)
+      useAuthenticationApi(getRequestData)
     );
 
     await waitForNextUpdate();

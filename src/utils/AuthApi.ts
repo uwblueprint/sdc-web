@@ -3,10 +3,13 @@ import { HttpMethods } from './HttpMethods';
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
+export interface AuthenticationRequest {
+  user: {
+    email: string;
+    password: string;
+  };
+}
+
 export const useAuthenticationApi = (
-  email: string,
-  password: string
-): ApiHookResponse =>
-  useAxios(HttpMethods.GET, `${baseUrl}/login`, {
-    user: { email, password },
-  });
+  request: AuthenticationRequest
+): ApiHookResponse => useAxios(HttpMethods.GET, `${baseUrl}/login`, request);
