@@ -1,6 +1,5 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { useAuthenticationApi } from './AuthApi';
-import { ApiResponse } from './UseAxios';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 
@@ -21,20 +20,12 @@ const baseUrl = `${process.env.REACT_APP_API_URL}`;
 describe('useAuthenticationApi', () => {
   it('is able to authenticate user', async () => {
     const url = `${baseUrl}/login`;
-    const useAuthSuccessfulResponse: ApiResponse = {
-      data: { verified: true },
-      status: 200,
-      headers: httpHeaders,
-    };
+    const useAuthSuccessfulResponse = { verified: true };
 
     const mock = new MockAdapter(axios);
     mock
       .onAny(url, getRequestData)
-      .reply(
-        useAuthSuccessfulResponse.status,
-        useAuthSuccessfulResponse.data,
-        httpHeaders
-      );
+      .reply(200, useAuthSuccessfulResponse, httpHeaders);
 
     const { result, waitForNextUpdate } = renderHook(() =>
       useAuthenticationApi(email, password)
