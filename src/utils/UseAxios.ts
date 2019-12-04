@@ -27,12 +27,16 @@ export const useAxios = (
     async function callApi() {
       await axios(axiosConfig)
         .then((result: { data: any }) => {
-          setResponse(result.data);
+          setResponse(result.data === undefined ? null : result.data);
           setIsLoading(false);
           setIsSuccessful(true);
         })
         .catch((error: { response: any }) => {
-          setResponse(error.response ? error.response.data : null);
+          setResponse(
+            !error.response || error.response.data === undefined
+              ? null
+              : error.response.data
+          );
           setIsLoading(false);
           setIsSuccessful(false);
         });

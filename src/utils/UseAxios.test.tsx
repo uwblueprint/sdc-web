@@ -7,11 +7,23 @@ import axios from 'axios';
 const url = `${process.env.REACT_APP_API_URL}/test`;
 
 describe('useAxios', () => {
-  it('returns isLoading while waiting for response', () => {
-    const { result } = renderHook(() => useAxios(HttpMethods.GET, url, null));
+  it('returns isLoading while waiting for response', async () => {
+    const successfulResponse = {
+      message: 'Testing successful response.',
+    };
+    const mock = new MockAdapter(axios);
+    mock.onGet(url).reply(200, successfulResponse);
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useAxios(HttpMethods.GET, url, null)
+    );
 
     expect(result.current.isLoading).toEqual(true);
     expect(result.current.isSuccessful).toEqual(false);
+
+    await waitForNextUpdate(); // Wait for axios to recieve a reply.
+
+    expect(result.current.isLoading).toEqual(false);
+    expect(result.current.isSuccessful).toEqual(true);
   });
 
   it('returns data if successful', async () => {
@@ -34,21 +46,21 @@ describe('useAxios', () => {
   });
 
   it('indicates request is unsuccessful if response status is not 200', async () => {
-    const unsuccessfulGetResponse = {
+    const failedGetResponse = {
       message: 'Testing unsuccessful response.',
     };
 
     const mock = new MockAdapter(axios);
-    mock.onAny(url).reply(400, unsuccessfulGetResponse);
+    mock.onAny(url).reply(400, failedGetResponse);
     const { result, waitForNextUpdate } = renderHook(() =>
       useAxios(HttpMethods.GET, url, null)
     );
 
     await waitForNextUpdate();
 
+    expect(result.current.response).toStrictEqual(failedGetResponse);
     expect(result.current.isLoading).toEqual(false);
     expect(result.current.isSuccessful).toEqual(false);
-    expect(result.current.response).toStrictEqual(unsuccessfulGetResponse);
   });
 
   it('handles requests that sends request data', async () => {
@@ -90,12 +102,12 @@ describe('useAxios', () => {
     });
     it('relays message if unsuccessful response', async () => {
       const requestData = { data: 'some data' };
-      const unsuccessfulGetResponse = {
+      const failedGetResponse = {
         message: 'Testing unsuccessful GET response.',
       };
 
       const mock = new MockAdapter(axios);
-      mock.onGet(url, requestData).reply(400, unsuccessfulGetResponse);
+      mock.onGet(url, requestData).reply(400, failedGetResponse);
 
       const { result, waitForNextUpdate } = renderHook(() =>
         useAxios(HttpMethods.GET, url, requestData)
@@ -103,7 +115,7 @@ describe('useAxios', () => {
 
       await waitForNextUpdate();
 
-      expect(result.current.response).toStrictEqual(unsuccessfulGetResponse);
+      expect(result.current.response).toStrictEqual(failedGetResponse);
       expect(result.current.isLoading).toEqual(false);
       expect(result.current.isSuccessful).toEqual(false);
     });
@@ -115,36 +127,28 @@ describe('useAxios', () => {
       const successfulPostResponse = {
         message: 'Testing successful POST response.',
       };
-
       const mock = new MockAdapter(axios);
       mock.onPost(url, requestData).reply(200, successfulPostResponse);
-
       const { result, waitForNextUpdate } = renderHook(() =>
         useAxios(HttpMethods.POST, url, requestData)
       );
-
       await waitForNextUpdate();
-
       expect(result.current.response).toStrictEqual(successfulPostResponse);
       expect(result.current.isLoading).toEqual(false);
       expect(result.current.isSuccessful).toEqual(true);
     });
     it('relays message if unsuccessful response', async () => {
       const requestData = { data: 'some data' };
-      const unsuccessfulPostResponse = {
+      const failedPostResponse = {
         message: 'Testing unsuccessful POST response.',
       };
-
       const mock = new MockAdapter(axios);
-      mock.onPost(url, requestData).reply(400, unsuccessfulPostResponse);
-
+      mock.onPost(url, requestData).reply(400, failedPostResponse);
       const { result, waitForNextUpdate } = renderHook(() =>
         useAxios(HttpMethods.POST, url, requestData)
       );
-
       await waitForNextUpdate();
-
-      expect(result.current.response).toStrictEqual(unsuccessfulPostResponse);
+      expect(result.current.response).toStrictEqual(failedPostResponse);
       expect(result.current.isLoading).toEqual(false);
       expect(result.current.isSuccessful).toEqual(false);
     });
@@ -172,12 +176,12 @@ describe('useAxios', () => {
     });
     it('relays message if unsuccessful response', async () => {
       const requestData = { data: 'some data' };
-      const unsuccessfulPutResponse = {
+      const failedPutResponse = {
         message: 'Testing unsuccessful PUT response.',
       };
 
       const mock = new MockAdapter(axios);
-      mock.onPut(url, requestData).reply(400, unsuccessfulPutResponse);
+      mock.onPut(url, requestData).reply(400, failedPutResponse);
 
       const { result, waitForNextUpdate } = renderHook(() =>
         useAxios(HttpMethods.PUT, url, requestData)
@@ -185,7 +189,7 @@ describe('useAxios', () => {
 
       await waitForNextUpdate();
 
-      expect(result.current.response).toStrictEqual(unsuccessfulPutResponse);
+      expect(result.current.response).toStrictEqual(failedPutResponse);
       expect(result.current.isLoading).toEqual(false);
       expect(result.current.isSuccessful).toEqual(false);
     });
@@ -213,12 +217,12 @@ describe('useAxios', () => {
     });
     it('relays message if unsuccessful response', async () => {
       const requestData = { data: 'some data' };
-      const unsuccessfulDeleteResponse = {
+      const failedDeleteResponse = {
         message: 'Testing unsuccessful DELETE response.',
       };
 
       const mock = new MockAdapter(axios);
-      mock.onDelete(url, requestData).reply(400, unsuccessfulDeleteResponse);
+      mock.onDelete(url, requestData).reply(400, failedDeleteResponse);
 
       const { result, waitForNextUpdate } = renderHook(() =>
         useAxios(HttpMethods.DELETE, url, requestData)
@@ -226,7 +230,7 @@ describe('useAxios', () => {
 
       await waitForNextUpdate();
 
-      expect(result.current.response).toStrictEqual(unsuccessfulDeleteResponse);
+      expect(result.current.response).toStrictEqual(failedDeleteResponse);
       expect(result.current.isLoading).toEqual(false);
       expect(result.current.isSuccessful).toEqual(false);
     });

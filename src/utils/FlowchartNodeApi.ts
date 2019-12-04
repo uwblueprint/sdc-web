@@ -58,6 +58,6 @@ export const useDeleteFlowchartNodeApi = (
   );
 
 export const useCreateFlowchartNodeApi = (
-  request: CreateFlowcharNodeRequest
+  request: CreateFlowchartNodeRequest
 ): ApiHookResponse =>
   useAxios(HttpMethods.POST, `${baseUrl}/flowchart_node`, request);

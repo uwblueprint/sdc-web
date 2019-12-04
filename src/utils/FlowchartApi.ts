@@ -6,7 +6,11 @@ const baseUrl = process.env.REACT_APP_API_URL;
 export interface CreateFlowchartRequest {
   title: string;
   description: string;
-  heigth: 0;
+}
+
+export interface UpdateFlowchartRequest {
+  title: string;
+  description: string;
 }
 
 export const useGetFlowchartsApi = (): ApiHookResponse =>
@@ -17,7 +21,7 @@ export const useGetFlowchartApi = (flowchartId: number): ApiHookResponse =>
 
 export const useUpdateFlowchartApi = (
   flowchartId: number,
-  updateContent: number
+  updateContent: UpdateFlowchartRequest
 ): ApiHookResponse =>
   useAxios(
     HttpMethods.PUT,
