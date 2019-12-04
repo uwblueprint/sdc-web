@@ -6,6 +6,7 @@ const baseUrl = process.env.REACT_APP_API_URL;
 export interface CreateFlowchartRequest {
   title: string;
   description: string;
+  height: 0;
 }
 
 export interface UpdateFlowchartRequest {
