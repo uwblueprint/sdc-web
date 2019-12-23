@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react-hooks';
-import { useAuthenticationApi, AuthenticationRequest } from '../AuthApi';
+import { useAuthenticationApi } from '../AuthApi';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 
@@ -18,7 +18,10 @@ describe('useAuthenticationApi', () => {
     mock.onAny(url, getRequestData).reply(200, successfulUseAuthResponse);
 
     const { result, waitForNextUpdate } = renderHook(() =>
-      useAuthenticationApi(getRequestData)
+      useAuthenticationApi(
+        getRequestData.user.email,
+        getRequestData.user.password
+      )
     );
 
     await waitForNextUpdate();
@@ -41,7 +44,10 @@ describe('useAuthenticationApi', () => {
     mock.onAny(url, getRequestData).reply(400, failedUseAuthResponse);
 
     const { result, waitForNextUpdate } = renderHook(() =>
-      useAuthenticationApi(getRequestData)
+      useAuthenticationApi(
+        getRequestData.user.email,
+        getRequestData.user.password
+      )
     );
 
     await waitForNextUpdate();
@@ -64,7 +70,10 @@ describe('useAuthenticationApi', () => {
     mock.onAny(url, getRequestData).reply(200, successfulUseAuthResponse);
 
     const { result, waitForNextUpdate } = renderHook(() =>
-      useAuthenticationApi(getRequestData)
+      useAuthenticationApi(
+        getRequestData.user.email,
+        getRequestData.user.password
+      )
     );
 
     expect(result.current.isLoading).toEqual(true);
