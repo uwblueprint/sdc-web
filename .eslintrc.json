@@ -25,7 +25,7 @@
     "prefer-template": "error",
     "template-curly-spacing": "error",
     "arrow-body-style": ["error", "as-needed"],
-    "one-var": "warn",
+    "one-var": ["warn", "never"],
     "object-shorthand": "warn",
     "arrow-parens": "warn",
     "no-multi-spaces": "warn",
