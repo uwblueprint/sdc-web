@@ -55,3 +55,17 @@ if you haven't already
 # install dependencies
 npm install
 ```
+
+#### Environment Variable Setup
+
+Create the following `.env.development.local` file:
+
+```
+REACT_APP_API_URL=http://localhost:5000
+```
+
+#### Running
+
+```
+npm start
+```
