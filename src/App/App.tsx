@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRoutes, A } from 'hookrouter';
-import routes from "./router";
+import routes from './router';
 
 //import FlowChartNodeComponent from "./components/FlowChartNodeComponent";
 //import FlowChartComponent from "./components/FlowChartComponent";
