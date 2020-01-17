@@ -1,10 +1,10 @@
 import React from 'react';
 import { useRoutes, A } from 'hookrouter';
 import routes from "./router";
-import styles from './App.module.scss';
+//import styles from './App.module.scss';
 
-import FlowChartNodeComponent from "./components/FlowChartNodeComponent";
-import FlowChartComponent from "./components/FlowChartComponent";
+//import FlowChartNodeComponent from "./components/FlowChartNodeComponent";
+//import FlowChartComponent from "./components/FlowChartComponent";
 
 //const App: React.FC = () => <h1 className={styles.helloworld}>Hello SDC</h1>;
 
