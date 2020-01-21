@@ -1,6 +1,18 @@
 import React from 'react';
-import styles from './App.module.scss';
+//import styles from './App.module.scss';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-const App: React.FC = () => <h1 className={styles.helloworld}>Hello SDC</h1>;
+const App: React.FC = () => (
+  <Router>
+    <Switch>
+      <Route path="/home">
+        <p>Hello test</p>
+      </Route>
+      <Route path="/">
+        <p>First test</p>
+      </Route>
+    </Switch>
+  </Router>
+);
 
 export default App;
