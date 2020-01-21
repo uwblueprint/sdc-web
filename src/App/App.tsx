@@ -1,20 +1,18 @@
 import React from 'react';
-import { useRoutes, A } from 'hookrouter';
-import routes from './router';
+//import styles from './App.module.scss';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-//import FlowChartNodeComponent from "./components/FlowChartNodeComponent";
-//import FlowChartComponent from "./components/FlowChartComponent";
-
-function App() {
-    const routeResult = useRoutes(routes);
-
-    return (
-        <div className="App">
-            <A href="/flowchart_node">Flowchart Node</A>
-            <A href="/flowchart">Flowchart</A>
-            {routeResult}
-        </div>
-    )
-}
+const App: React.FC = () => (
+  <Router>
+    <Switch>
+      <Route path="/home">
+        <p>Hello test</p>
+      </Route>
+      <Route path="/">
+        <p>First test</p>
+      </Route>
+    </Switch>
+  </Router>
+);
 
 export default App;
