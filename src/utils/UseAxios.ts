@@ -25,6 +25,7 @@ export const useAxios = (
 
   useEffect(() => {
     async function callApi() {
+      debugger;
       await axios(axiosConfig)
         .then((result: { data: any }) => {
           setResponse(result.data === undefined ? null : result.data);
@@ -39,6 +40,9 @@ export const useAxios = (
           );
           setIsLoading(false);
           setIsSuccessful(false);
+          console.log(error);
+          console.log(url);
+          console.log('hisdfsdf');
         });
     }
     callApi();
