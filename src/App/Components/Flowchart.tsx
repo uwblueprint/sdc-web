@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { useGetFlowchartsApi } from '../../utils/FlowchartApi';
 
 type MyProps = {
@@ -6,7 +6,6 @@ type MyProps = {
 };
 
 export default function FlowChart(props: MyProps) {
-  let testString = useGetFlowchartsApi();
-  console.log(useGetFlowchartsApi());
-  return <div>{JSON.stringify(testString)}asdasd</div>;
+  const testString = useGetFlowchartsApi();
+  return <div>{JSON.stringify(testString)}</div>;
 }

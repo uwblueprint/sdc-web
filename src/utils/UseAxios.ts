@@ -40,9 +40,6 @@ export const useAxios = (
           );
           setIsLoading(false);
           setIsSuccessful(false);
-          console.log(error);
-          console.log(url);
-          console.log('hisdfsdf');
         });
     }
     callApi();
