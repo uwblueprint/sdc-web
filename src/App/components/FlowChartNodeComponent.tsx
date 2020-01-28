@@ -12,7 +12,7 @@
 //   }
 // }
 
-import React, { Component } from 'react';
+import React from 'react';
 import { useGetFlowchartNodeApi } from '../../utils/FlowchartNodeApi';
 type MyProps = {
   // note that using an interface is also ok
@@ -26,12 +26,12 @@ type MyProps = {
 };
 
 type MyState = {
-  testString: Object;
+  // testString: Object;
 };
 
 export default function FlowChartNodeComponent(props: MyProps) {
   const testString = useGetFlowchartNodeApi(1);
-  console.log(useGetFlowchartNodeApi(1));
+  // console.log(useGetFlowchartNodeApi(1));
   return <div>{props.text}</div>;
 }
 
