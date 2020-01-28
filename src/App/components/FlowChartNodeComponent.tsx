@@ -13,7 +13,7 @@
 // }
 
 import React from 'react';
-import { useGetFlowchartNodeApi } from '../../utils/FlowchartNodeApi';
+// import { useGetFlowchartNodeApi } from '../../utils/FlowchartNodeApi';
 type MyProps = {
   // note that using an interface is also ok
   text: string;
