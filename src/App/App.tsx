@@ -12,7 +12,7 @@ const App: React.FC = () => (
       {/* <Route path="/">
         <p>First test</p>
       </Route> */}
-      <Route path="/flowchartnode" component={FlowChartNodeComponent} />
+      <Route path="/flowchartnode" component={FlowChartNodeComponent}></Route>
     </Switch>
   </Router>
 );

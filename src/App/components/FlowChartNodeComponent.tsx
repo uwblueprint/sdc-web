@@ -30,7 +30,7 @@ type MyState = {
 };
 
 export default function FlowChartNodeComponent(props: MyProps) {
-  const testString = useGetFlowchartNodeApi(1);
+  // const testString = useGetFlowchartNodeApi(1);
   // console.log(useGetFlowchartNodeApi(1));
   return <div>{props.text}</div>;
 }
