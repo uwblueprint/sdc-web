@@ -1,19 +1,22 @@
 import React from 'react';
 //import styles from './App.module.scss';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Flowchart from './Components/Flowchart';
+
+import FlowChartNodeComponent from './components/FlowChartNodeComponent';
 
 const App: React.FC = () => (
   <Router>
     <Switch>
-      <Route path="/flowchart" component={Flowchart} />
-
+      <Route path="/home">
+        <p>He</p>
+      </Route>
       <Route path="/flowchartnodes">
         <p>Hi</p>
       </Route>
-      <Route path="/">
+      {/* <Route path="/">
         <p>First test</p>
-      </Route>
+      </Route> */}
+      <Route path="/flowchartnode" component={FlowChartNodeComponent}></Route>
     </Switch>
   </Router>
 );
