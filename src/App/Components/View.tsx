@@ -26,18 +26,16 @@ export default function View(props: MyProps) {
 
   // console.log(flowcharts);
   const flowcharts_rendered = flowcharts.response.map(
-    (flowchart: Flowchart) => {
-      return (
-        <div>
-          <FlowChart
-            flowchart_id={flowchart.id}
-            title={flowchart.title}
-            description={flowchart.description}
-            root_id={flowchart.root_id}
-          />
-        </div>
-      );
-    }
+    (flowchart: Flowchart) => (
+      <div>
+        <FlowChart
+          flowchart_id={flowchart.id}
+          title={flowchart.title}
+          description={flowchart.description}
+          root_id={flowchart.root_id}
+        />
+      </div>
+    )
   );
 
   return <div>{flowcharts_rendered}</div>;

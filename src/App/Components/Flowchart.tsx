@@ -1,7 +1,5 @@
 import React from 'react';
-import { useGetFlowchartsApi } from '../../utils/FlowchartApi';
-// import
-// import { useEffect } from 'react';
+
 type MyProps = {
   flowchart_id: number;
   title: string;
@@ -10,10 +8,6 @@ type MyProps = {
 };
 
 export default function FlowChart(props: MyProps) {
-  const testString = useFlowchart;
-  // useEffect(() => {
-  //   testString = useFlowchart;
-  // });
   return (
     <div>
       {props.flowchart_id} {props.title} {props.description} {props.root_id}
@@ -21,7 +15,6 @@ export default function FlowChart(props: MyProps) {
   );
 }
 
-function useFlowchart() {
-  const testString = useGetFlowchartsApi();
-  // console.log(testString);
-}
+// function useFlowchart() {
+//   const testString = useGetFlowchartsApi();
+// }
