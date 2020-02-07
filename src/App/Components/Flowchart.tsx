@@ -10,18 +10,9 @@ type MyProps = {
 };
 
 export default function FlowChart(props: MyProps) {
-  const testString = useFlowchart;
-  // useEffect(() => {
-  //   testString = useFlowchart;
-  // });
   return (
     <div>
       {props.flowchart_id} {props.title} {props.description} {props.root_id}
     </div>
   );
-}
-
-function useFlowchart() {
-  const testString = useGetFlowchartsApi();
-  // console.log(testString);
 }
