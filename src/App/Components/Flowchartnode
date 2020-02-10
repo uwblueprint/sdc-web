@@ -1,0 +1,9 @@
+import React from 'react';
+import { useGetFlowchartsApi } from '../../utils/FlowchartApi';
+import FlowChart from './Flowchart';
+
+type myProps = {
+  //message: string;
+};
+
+export default function FlowChartNode(props: MyProps) {}

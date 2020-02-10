@@ -1,27 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useGetFlowchartsApi } from '../../utils/FlowchartApi';
 // import
 // import { useEffect } from 'react';
-type MyProps = {
+type FlowChartProps = {
   flowchart_id: number;
   title: string;
   description: string;
   root_id: number;
+  //children: React.ReactNode;
 };
 
-export default function FlowChart(props: MyProps) {
-  const testString = useFlowchart;
-  // useEffect(() => {
-  //   testString = useFlowchart;
-  // });
-  return (
-    <div>
-      {props.flowchart_id} {props.title} {props.description} {props.root_id}
-    </div>
-  );
-}
+type FlowChartNode = {
+  id: number;
+  text: string;
+  // header: string;
+  // buttontext: string;
+  // next_question: string;
+  // child_id: number;
+  // is_root: boolean;
+  // flowchart_id: number;
+};
 
-function useFlowchart() {
-  const testString = useGetFlowchartsApi();
-  // console.log(testString);
+export default function FlowChart(props: FlowChartProps) {
+  return props;
 }
