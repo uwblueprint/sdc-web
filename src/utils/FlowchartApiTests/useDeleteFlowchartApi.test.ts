@@ -1,7 +1,7 @@
 describe('test', () => {
-    it('test', () => {
-        expect(true).toEqual(true);
-    })
+  it('test', () => {
+    expect(true).toEqual(true);
+  });
 });
 
 // import { renderHook } from '@testing-library/react-hooks';

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const request = (httpMethod, url, requestData) => {
+export const req = (httpMethod, url, requestData) => {
   const axiosConfig = {
     method: httpMethod,
     url,
