@@ -1,12 +1,17 @@
 import React from 'react';
 import Card from './Card.jsx';
-import {Link} from 'react-router-dom';
+import {getFlowcharts} from '../../utils/FlowchartApi';
 
 export default class Home extends React.Component {
   state = {
-    flowcharts: ['hello'],
+    flowcharts: [],
   }
   componentDidMount() {
+    getFlowcharts()
+    .then(flowcharts => this.setState({flowcharts}))
+    .catch(({response}) => {
+      if (!response) console.log("Error fetching flow charts");
+    });
   }
   render() {
     return (
@@ -23,8 +28,9 @@ export default class Home extends React.Component {
 
   renderCards() {
     const {flowcharts} = this.state;
+    const {history} = this.props;
     return flowcharts.map((flowchart) => {
-      return <Card onClick={() => this.props.history.push("/flowchart/")} />
+      return <Card key={flowchart.id} data={flowchart} onClick={() => history.push("/flowchart/")} />
     });
   }
 }
