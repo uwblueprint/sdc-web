@@ -1,3 +1,9 @@
+describe('test', () => {
+    it('test', () => {
+        expect(true).toEqual(true);
+    })
+});
+
 // import { renderHook } from '@testing-library/react-hooks';
 // import { useDeleteFlowchartApi } from '../FlowchartApi';
 // import MockAdapter from 'axios-mock-adapter';
