@@ -1,24 +1,38 @@
 import React from 'react';
 import Card from './Card.jsx';
-// add the flowchartnode api
+import { getFlowchart } from '../../utils/FlowchartApi';
+import { getChildren } from '../../utils/FlowchartNodeApi';
 
 export default class FlowChart extends React.Component {
   state = {
-    flowchartNodes: [
-      { id: 1, text: 'node text', header: 'this is a fake node' },
-    ],
+    flowchartNodes: [],
+    isFirst: true,
   };
   componentDidMount() {
-    //api stuff here
+    if (this.state.isFirst) {
+      getFlowchart(this.props.match.params.id)
+        .then((flowchart) =>
+          getChildren(flowchart.flowchart.root_id)
+            .then((children) =>
+              this.setState({ flowchartNodes: children, isFirst: false })
+            )
+            .catch(({ response }) => {
+              if (!response) {
+                console.log('Error fetching flowchart nodes');
+              }
+            })
+        )
+        .catch(({ response }) => {
+          if (!response) {
+            console.log('Error fetching flow charts');
+          }
+        });
+    }
   }
   render() {
     // render the flow chart components here
     const { id } = this.props.match.params;
-    return (
-      <div>
-        {this.renderHeader()} {this.renderCards()}
-      </div>
-    );
+    return <div>{this.renderCards()}</div>;
   }
 
   renderHeader() {
@@ -33,7 +47,17 @@ export default class FlowChart extends React.Component {
         id={flowchartNode.id}
         title={flowchartNode.title}
         description={flowchartNode.text}
-        onClick={() => this.setState({ flowcharNodes: [] })} //change this
+        onClick={() =>
+          getChildren(flowchartNode.id)
+            .then((children) =>
+              this.setState({ flowchartNodes: children, isFirst: false })
+            )
+            .catch(({ response }) => {
+              if (!response) {
+                console.log('Error fetching flowchart nodes');
+              }
+            })
+        }
       />
     ));
   }
