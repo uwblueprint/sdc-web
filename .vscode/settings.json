@@ -8,5 +8,8 @@
   ],
   "css.lint.important": "error",
   "css.lint.universalSelector": "error",
-  "eslint.autoFixOnSave": true
+  "eslint.autoFixOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
 }
