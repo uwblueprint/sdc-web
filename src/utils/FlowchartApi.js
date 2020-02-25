@@ -2,9 +2,9 @@
 import { HttpMethods } from './HttpMethods';
 import { req } from './Api.js';
 
-const baseUrl = `${process.env.REACT_APP_API_URL}/flowcharts`;
+const baseUrl = `${process.env.REACT_APP_API_URL}/flowchart`;
 
-export const getFlowcharts = () => req(HttpMethods.GET, baseUrl, null);
+export const getFlowcharts = () => req(HttpMethods.GET, `${baseUrl}s`, null);
 
 export const getFlowchart = (flowchartId) =>
   req(HttpMethods.GET, `${baseUrl}/${flowchartId}`, null);

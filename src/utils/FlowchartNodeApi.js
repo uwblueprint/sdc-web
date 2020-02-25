@@ -18,3 +18,6 @@ export const deleteFlowchartNode = (flowchartNodeId) =>
 
 export const createFlowchartNode = (request) =>
   req(HttpMethods.POST, `${baseUrl}`, request);
+
+export const getChildren = (flowchartNodeId) =>
+  req(HttpMethods.GET, `${baseUrl}/${flowchartNodeId}/children`, null);

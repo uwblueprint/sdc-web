@@ -10,7 +10,9 @@ export default class Home extends React.Component {
     getFlowcharts()
       .then((flowcharts) => this.setState({ flowcharts }))
       .catch(({ response }) => {
-        if (!response) console.log('Error fetching flow charts');
+        if (!response) {
+          console.log('Error fetching flow charts');
+        }
       });
   }
   render() {
@@ -29,14 +31,13 @@ export default class Home extends React.Component {
   renderCards() {
     const { flowcharts } = this.state;
     const { history } = this.props;
-    return flowcharts.map((flowchart) => {
-      return (
-        <Card
-          key={flowchart.id}
-          data={flowchart}
-          onClick={() => history.push('/flowchart/')}
-        />
-      );
-    });
+    return flowcharts.map((flowchart) => (
+      <Card
+        id={flowchart.id}
+        title={flowchart.title}
+        description={flowchart.description}
+        onClick={() => history.push(`/flowchart/${flowchart.id}`)}
+      />
+    ));
   }
 }
