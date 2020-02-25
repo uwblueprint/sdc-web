@@ -13,9 +13,10 @@ export default class FlowChart extends React.Component {
       getFlowchart(this.props.match.params.id)
         .then((flowchart) =>
           getChildren(flowchart.flowchart.root_id)
-            .then((children) =>
-              this.setState({ flowchartNodes: children, isFirst: false })
-            )
+            .then((children) => {
+              debugger;
+              this.setState({ flowchartNodes: children, isFirst: false });
+            })
             .catch(({ response }) => {
               if (!response) {
                 console.log('Error fetching flowchart nodes');
@@ -31,7 +32,7 @@ export default class FlowChart extends React.Component {
   }
   render() {
     // render the flow chart components here
-    const { id } = this.props.match.params;
+    // const { id } = this.props.match.params;
     return <div>{this.renderCards()}</div>;
   }
 
@@ -42,6 +43,7 @@ export default class FlowChart extends React.Component {
 
   renderCards() {
     const { flowchartNodes } = this.state;
+    console.log(flowchartNodes);
     return flowchartNodes.map((flowchartNode) => (
       <Card
         id={flowchartNode.id}
@@ -49,8 +51,10 @@ export default class FlowChart extends React.Component {
         description={flowchartNode.text}
         onClick={() =>
           getChildren(flowchartNode.id)
-            .then((children) =>
-              this.setState({ flowchartNodes: children, isFirst: false })
+            .then(
+              (children) =>
+                this.setState({ flowchartNodes: children, isFirst: false }),
+              console.log('hi')
             )
             .catch(({ response }) => {
               if (!response) {
