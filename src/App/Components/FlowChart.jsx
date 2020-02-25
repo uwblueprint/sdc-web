@@ -14,7 +14,6 @@ export default class FlowChart extends React.Component {
         .then((flowchart) =>
           getChildren(flowchart.flowchart.root_id)
             .then((children) => {
-              debugger;
               this.setState({ flowchartNodes: children, isFirst: false });
             })
             .catch(({ response }) => {
