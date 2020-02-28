@@ -46,7 +46,7 @@ export default class FlowChart extends React.Component {
     return flowchartNodes.map((flowchartNode) => (
       <Card
         id={flowchartNode.id}
-        title={flowchartNode.title}
+        title={flowchartNode.header}
         description={flowchartNode.text}
         onClick={() =>
           getChildren(flowchartNode.id)
