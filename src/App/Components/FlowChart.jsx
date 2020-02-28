@@ -51,9 +51,11 @@ export default class FlowChart extends React.Component {
         onClick={() =>
           getChildren(flowchartNode.id)
             .then(
-              (children) =>
-                this.setState({ flowchartNodes: children, isFirst: false }),
-              console.log('hi')
+              (children) => {
+                if(children.length > 0){
+                  this.setState({ flowchartNodes: children, isFirst: false })
+                }
+              }
             )
             .catch(({ response }) => {
               if (!response) {
