@@ -3,9 +3,11 @@ import Card from './Card.jsx';
 import MenuBar from './MenuBar.jsx';
 import { getFlowcharts } from '../../utils/FlowchartApi';
 import styled from 'styled-components';
+import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
 
 const Banner = styled.div`
-  background: #09433C;
+  background: #09433c;
   padding: 40px 24px;
   // width: 375px;
   //height: 254px;
@@ -23,7 +25,7 @@ const HeaderTitle = styled.h1`
   height: 87px;
   left: 0px;
   top: 0px;
-  color: #FFFFFF;
+  color: #ffffff;
   font-family: Arial;
   font-style: normal;
   font-weight: normal;
@@ -55,13 +57,12 @@ const HeaderDescription = styled.div`
   font-weight: normal;
   font-size: 20px;
   line-height: 23px;
-  color: #FFFFFF;
+  color: #ffffff;
   letter-spacing: 1.5px;
 `;
 
 const CardContainer = styled.div`
-
-  top:499px;
+  top: 499px;
 `;
 
 export default class Home extends React.Component {
@@ -82,47 +83,46 @@ export default class Home extends React.Component {
       <div>
         <MenuBar></MenuBar>
         {this.renderHeader()}
-        {this.renderCards()}
+        <Container maxWidth="sm">{this.renderCards()}</Container>
       </div>
     );
   }
 
   renderHeader() {
-
     return (
       <Banner>
         <HeaderTitle>
-          Welcome to the <BoldedWord>Social Development Center Waterloo Region.</BoldedWord>
+          Welcome to the{' '}
+          <BoldedWord>Social Development Center Waterloo Region.</BoldedWord>
         </HeaderTitle>
         <HeaderDescription>
-          Information and training resource for community level social services and programs.
-           </HeaderDescription>
+          Information and training resource for community level social services
+          and programs.
+        </HeaderDescription>
       </Banner>
-
     );
   }
-
-
 
   renderCards() {
     const { flowcharts } = this.state;
     const { history } = this.props;
     return flowcharts.map((flowchart) => (
-
       <div>
-
         <CardQuestion>
-          What type of information are you looking for?
+          <Box borderBottom={1} pt={2.4} pb={3.4} pl={2.4} pr={3.531}>
+            What type of information are you looking for?
+          </Box>
         </CardQuestion>
         <CardContainer>
-          <Card
-            id={flowchart.id}
-            title={flowchart.title}
-            description={flowchart.description}
-            onClick={() => history.push(`/flowchart/${flowchart.id}`)}
-          />
+          <Box borderBottom={1} pt={2.4} pb={3.4} pl={2.4} pr={3.531}>
+            <Card
+              id={flowchart.id}
+              title={flowchart.title}
+              description={flowchart.description}
+              onClick={() => history.push(`/flowchart/${flowchart.id}`)}
+            />
+          </Box>
         </CardContainer>
-
       </div>
     ));
   }

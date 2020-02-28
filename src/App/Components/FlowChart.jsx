@@ -5,10 +5,7 @@ import { getChildren } from '../../utils/FlowchartNodeApi';
 import Container from '@material-ui/core/Container';
 import { Box } from '@material-ui/core';
 import { spacing } from '@material-ui/system';
-
-const theme = {
-  spacing: 10,
-};
+import MenuBar from './MenuBar';
 
 export default class FlowChart extends React.Component {
   state = {
@@ -41,6 +38,7 @@ export default class FlowChart extends React.Component {
     // const { id } = this.props.match.params;
     return (
       <Container maxWidth="sm">
+        <MenuBar />
         <div style={{ fontFamily: 'Arial' }}>
           <div>{this.renderHeader()}</div>
           <div>{this.renderCards()}</div>
