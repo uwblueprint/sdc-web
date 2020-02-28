@@ -18,7 +18,9 @@ export default class FlowChart extends React.Component {
         .then((flowchart) =>
           getChildren(flowchart.flowchart.root_id)
             .then((children) => {
-              this.setState({ flowchartNodes: children, isFirst: false });
+              if (children.length > 0) {
+                this.setState({ flowchartNodes: children, isFirst: false });
+              }
             })
             .catch(({ response }) => {
               if (!response) {
@@ -77,11 +79,11 @@ export default class FlowChart extends React.Component {
           description={flowchartNode.text}
           onClick={() =>
             getChildren(flowchartNode.id)
-              .then(
-                (children) =>
-                  this.setState({ flowchartNodes: children, isFirst: false }),
-                console.log('hi')
-              )
+              .then((children) => {
+                if (children.length > 0) {
+                  this.setState({ flowchartNodes: children, isFirst: false });
+                }
+              })
               .catch(({ response }) => {
                 if (!response) {
                   console.log('Error fetching flowchart nodes');
