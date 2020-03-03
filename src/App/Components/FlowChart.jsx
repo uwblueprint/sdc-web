@@ -57,6 +57,7 @@ export default class FlowChart extends React.Component {
         <div style={{ fontFamily: 'Arial' }}>
           <div>{this.renderHeader()}</div>
           <div>{this.renderCards()}</div>
+          <button onClick={this.props.history.goBack}>GO BACK!!</button>
         </div>
       </Container>
     );

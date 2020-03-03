@@ -9,8 +9,7 @@ import Box from '@material-ui/core/Box';
 const Banner = styled.div`
   background: #09433c;
   padding: 40px 24px;
-  // width: 375px;
-  //height: 254px;
+  height: 254px;
   left: 0px;
   top: 100px;
 `;
@@ -21,7 +20,7 @@ const BoldedWord = styled.span`
 
 const HeaderTitle = styled.h1`
   position: static;
-  width: 327px;
+  // width: 327px;
   height: 87px;
   left: 0px;
   top: 0px;
@@ -36,7 +35,7 @@ const HeaderTitle = styled.h1`
 
 const CardQuestion = styled.h1`
   padding: 42px 24px;
-  width: 375px;
+  // width: 375px;
   height: 58px;
   top: 399px;
   left: 16px;
