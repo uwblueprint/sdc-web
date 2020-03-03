@@ -8,7 +8,11 @@ const App: React.FC = () => (
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/flowchart/:flowchartId" component={FlowChart} />
-      <Route exact path="/flowchart/:flowchartId/node/:nodeId" component={FlowChart} />
+      <Route
+        exact
+        path="/flowchart/:flowchartId/node/:nodeId"
+        component={FlowChart}
+      />
     </Switch>
   </Router>
 );

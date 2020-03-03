@@ -8,7 +8,7 @@ import MenuBar from './MenuBar';
 
 export default class FlowChart extends React.Component {
   state = {
-    flowchartNodes: []
+    flowchartNodes: [],
   };
 
   componentDidMount() {
@@ -94,12 +94,13 @@ export default class FlowChart extends React.Component {
           title={flowchartNode.header}
           description={flowchartNode.text}
           onClick={() => {
-            this.fetchFlowchartNodes(flowchartNode.id).
-              then((success) => {
-                if (success) {
-                  this.props.history.push(`/flowchart/${flowchartId}/node/${flowchartNode.id}`);
-                }
-              });
+            this.fetchFlowchartNodes(flowchartNode.id).then((success) => {
+              if (success) {
+                this.props.history.push(
+                  `/flowchart/${flowchartId}/node/${flowchartNode.id}`
+                );
+              }
+            });
           }}
         />
       </Box>
