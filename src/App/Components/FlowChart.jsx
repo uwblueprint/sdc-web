@@ -2,9 +2,9 @@ import React from 'react';
 import Card from './Card.jsx';
 import { getFlowchart } from '../../utils/FlowchartApi';
 import { getChildren } from '../../utils/FlowchartNodeApi';
-import Container from '@material-ui/core/Container';
 import { Box } from '@material-ui/core';
 import MenuBar from './MenuBar';
+import { QuestionContainer, Question, Content } from './Home';
 
 export default class FlowChart extends React.Component {
   state = {
@@ -52,14 +52,16 @@ export default class FlowChart extends React.Component {
     // render the flow chart components here
     // const { id } = this.props.match.params;
     return (
-      <Container maxWidth="sm">
+      <div>
         <MenuBar />
-        <div style={{ fontFamily: 'Arial' }}>
-          <div>{this.renderHeader()}</div>
-          <div>{this.renderCards()}</div>
-          <button onClick={this.props.history.goBack}>GO BACK!!</button>
-        </div>
-      </Container>
+        <Content>
+          <div style={{ fontFamily: 'Arial' }}>
+            <div>{this.renderHeader()}</div>
+            <div>{this.renderCards()}</div>
+            <button onClick={this.props.history.goBack}>GO BACK!!</button>
+          </div>
+        </Content>
+      </div>
     );
   }
 
@@ -67,18 +69,11 @@ export default class FlowChart extends React.Component {
     const { flowchartNodes } = this.state;
     console.log(flowchartNodes[0]);
     return (
-      <Box
-        borderBottom={1}
-        pb={4.2}
-        pt={3.6}
-        pl={1.6}
-        pr={1.6}
-        borderColor={(196, 196, 196, 0.75)}
-      >
-        <div style={{ fontSize: '25px' }}>
+      <QuestionContainer>
+        <Question>
           {flowchartNodes.length !== 0 ? flowchartNodes[0].next_question : null}
-        </div>
-      </Box>
+        </Question>
+      </QuestionContainer>
     );
   }
 
@@ -88,7 +83,7 @@ export default class FlowChart extends React.Component {
 
     console.log(flowchartNodes);
     return flowchartNodes.map((flowchartNode) => (
-      <Box borderBottom={1} pt={2.4} pb={3.4} pl={2.4} pr={3.531}>
+      <Box key={flowchartNode.id}>
         <Card
           id={flowchartNode.id}
           title={flowchartNode.header}
