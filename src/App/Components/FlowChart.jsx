@@ -18,7 +18,7 @@ export default class FlowChart extends React.Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     const { nodeId } = this.props.match.params;
-    if (prevProps.match.params.nodeId != nodeId) {
+    if (prevProps.match.params.nodeId !== nodeId) {
       this.fetchFlowchartNodes(nodeId);
     }
   }
