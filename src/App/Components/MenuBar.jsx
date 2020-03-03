@@ -3,16 +3,13 @@ import styled from 'styled-components';
 
 const Menu = styled.div`
   background: #2d2d2e;
-  // width: 375px;
+  width: 100%;
   height: 103px;
-  left: 0px;
   top: 0px;
+  position: sticky;
+  z-index: 1000;
 `;
 
 export default function MenuBar(props) {
-  return (
-    <div>
-      <Menu></Menu>
-    </div>
-  );
+  return <Menu />;
 }

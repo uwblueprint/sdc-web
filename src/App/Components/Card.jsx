@@ -1,9 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { IconButton } from '@material-ui/core';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
+const Content = styled.div`
+  display: flex;
+  min-height: 160px;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(196, 196, 196, 0.75);
+`;
 const Title = styled.h1`
   font-family: Arial;
   font-style: normal;
@@ -27,6 +32,7 @@ const Description = styled.div`
 `;
 
 const ButtonDiv = styled.div`
+  align-self: center;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,10 +40,15 @@ const ButtonDiv = styled.div`
   float: 'right';
 `;
 
+const ArrowIcon = styled(ArrowForwardIosIcon)`
+  width: 28px !important;
+  height: 28px !important;
+`;
+
 export default class Card extends React.Component {
   render() {
     return (
-      <div>
+      <Content>
         {/* <Grid
           container
           spacing={3}
@@ -68,11 +79,9 @@ export default class Card extends React.Component {
           <Description>{this.props.description}</Description>
         </div>
         <ButtonDiv onClick={this.props.onClick}>
-          <IconButton aria-label="next question">
-            <ArrowForwardIosIcon />
-          </IconButton>
+          <ArrowIcon />
         </ButtonDiv>
-      </div>
+      </Content>
     );
   }
 }
