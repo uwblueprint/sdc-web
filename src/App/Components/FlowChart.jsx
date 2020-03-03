@@ -4,7 +4,6 @@ import { getFlowchart } from '../../utils/FlowchartApi';
 import { getChildren } from '../../utils/FlowchartNodeApi';
 import Container from '@material-ui/core/Container';
 import { Box } from '@material-ui/core';
-import { spacing } from '@material-ui/system';
 import MenuBar from './MenuBar';
 
 export default class FlowChart extends React.Component {
