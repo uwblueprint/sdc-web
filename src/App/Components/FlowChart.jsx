@@ -74,7 +74,7 @@ export default class FlowChart extends React.Component {
       <Box borderBottom={1} pt={2.4} pb={3.4} pl={2.4} pr={3.531}>
         <Card
           id={flowchartNode.id}
-          title={flowchartNode.title}
+          title={flowchartNode.header}
           description={flowchartNode.text}
           onClick={() =>
             getChildren(flowchartNode.id)
