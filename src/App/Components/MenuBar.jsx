@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Menu = styled.div`
-  background: #2D2D2E;
+  background: #2d2d2e;
   width: 100%; //375px
   height: 103px;
   left: 0px;
