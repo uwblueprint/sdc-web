@@ -8,32 +8,46 @@ import MenuBar from './MenuBar';
 
 export default class FlowChart extends React.Component {
   state = {
-    flowchartNodes: [],
-    isFirst: true,
+    flowchartNodes: []
   };
+
   componentDidMount() {
-    if (this.state.isFirst) {
-      getFlowchart(this.props.match.params.id)
-        .then((flowchart) =>
-          getChildren(flowchart.flowchart.root_id)
-            .then((children) => {
-              if (children.length > 0) {
-                this.setState({ flowchartNodes: children, isFirst: false });
-              }
-            })
-            .catch(({ response }) => {
-              if (!response) {
-                console.log('Error fetching flowchart nodes');
-              }
-            })
-        )
-        .catch(({ response }) => {
-          if (!response) {
-            console.log('Error fetching flow charts');
-          }
-        });
+    const { nodeId } = this.props.match.params;
+    this.fetchFlowchartNodes(nodeId);
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const { nodeId } = this.props.match.params;
+    if (prevProps.match.params.nodeId != nodeId) {
+      this.fetchFlowchartNodes(nodeId);
     }
   }
+
+  fetchFlowchartNodes(nodeId) {
+    const { flowchartId } = this.props.match.params;
+    return getFlowchart(flowchartId)
+      .then((flowchart) =>
+        getChildren(nodeId || flowchart.flowchart.root_id)
+          .then((children) => {
+            if (children.length > 0) {
+              this.setState({ flowchartNodes: children });
+              return true;
+            }
+            return false;
+          })
+          .catch(({ response }) => {
+            if (!response) {
+              console.log('Error fetching flowchart nodes');
+            }
+          })
+      )
+      .catch(({ response }) => {
+        if (!response) {
+          console.log('Error fetching flow charts');
+        }
+      });
+  }
+
   render() {
     // render the flow chart components here
     // const { id } = this.props.match.params;
@@ -69,6 +83,8 @@ export default class FlowChart extends React.Component {
 
   renderCards() {
     const { flowchartNodes } = this.state;
+    const { flowchartId } = this.props.match.params;
+
     console.log(flowchartNodes);
     return flowchartNodes.map((flowchartNode) => (
       <Box borderBottom={1} pt={2.4} pb={3.4} pl={2.4} pr={3.531}>
@@ -76,19 +92,14 @@ export default class FlowChart extends React.Component {
           id={flowchartNode.id}
           title={flowchartNode.header}
           description={flowchartNode.text}
-          onClick={() =>
-            getChildren(flowchartNode.id)
-              .then((children) => {
-                if (children.length > 0) {
-                  this.setState({ flowchartNodes: children, isFirst: false });
+          onClick={() => {
+            this.fetchFlowchartNodes(flowchartNode.id).
+              then((success) => {
+                if (success) {
+                  this.props.history.push(`/flowchart/${flowchartId}/node/${flowchartNode.id}`);
                 }
-              })
-              .catch(({ response }) => {
-                if (!response) {
-                  console.log('Error fetching flowchart nodes');
-                }
-              })
-          }
+              });
+          }}
         />
       </Box>
     ));

@@ -7,7 +7,8 @@ const App: React.FC = () => (
   <Router>
     <Switch>
       <Route exact path="/" component={Home} />
-      <Route exact path="/flowchart/:id" component={FlowChart} />
+      <Route exact path="/flowchart/:flowchartId" component={FlowChart} />
+      <Route exact path="/flowchart/:flowchartId/node/:nodeId" component={FlowChart} />
     </Switch>
   </Router>
 );
