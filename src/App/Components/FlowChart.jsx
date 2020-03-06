@@ -79,8 +79,6 @@ export default class FlowChart extends React.Component {
   }
 
   render() {
-    const { flowchartNodes } = this.state;
-
     // render the flow chart components here
     // const { id } = this.props.match.params;
     return (
