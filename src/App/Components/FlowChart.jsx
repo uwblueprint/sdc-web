@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from './Card.jsx';
 import { getFlowchart } from '../../utils/FlowchartApi';
-import { getChildren, getParents } from '../../utils/FlowchartNodeApi';
+import { getChildren, getParents, getParent } from '../../utils/FlowchartNodeApi';
 import { Box } from '@material-ui/core';
 import MenuBar from './MenuBar';
 import { QuestionContainer, Question, Content } from './Home';
@@ -10,12 +10,14 @@ export default class FlowChart extends React.Component {
   state = {
     flowchartNodes: [],
     parents: [],
+    parentNode: {},
   };
 
   componentDidMount() {
     const { nodeId } = this.props.match.params;
     this.fetchFlowchartNodes(nodeId);
     this.fetchParents(nodeId);
+    this.fetchParentNode(nodeId);
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -23,6 +25,7 @@ export default class FlowChart extends React.Component {
     if (prevProps.match.params.nodeId !== nodeId) {
       this.fetchFlowchartNodes(nodeId);
       this.fetchParents(nodeId);
+      this.fetchParentNode(nodeId);
     }
   }
 
@@ -39,6 +42,33 @@ export default class FlowChart extends React.Component {
           console.log('Error fetching flow charts');
         }
       });
+  }
+
+  goBack() {
+    const { flowchartId } = this.props.match.params;
+    if (this.state.parentNode !== null) {
+      alert(this.state.parentNode.id);
+      this.props.history.push(
+        `/flowchart/${flowchartId}/node/${this.state.parentNode.id}`
+      );
+    } else {
+      this.props.history.push('/');
+    }
+  }
+
+  fetchParentNode(nodeId) {
+    const { flowchartId } = this.props.match.params;
+    return getFlowchart(flowchartId).then((flowchart) =>
+      getParent(nodeId || flowchart.flowchart.root_id)
+        .then((parent) => {
+          this.setState({ parentNode: parent });
+        })
+        .catch((e) => {
+          if (e) {
+            console.log(e);
+          }
+        })
+    );
   }
 
   fetchFlowchartNodes(nodeId) {
@@ -75,9 +105,9 @@ export default class FlowChart extends React.Component {
         <Content>
           <div style={{ fontFamily: 'Arial' }}>
             <div>{this.renderBreadcrumbs()}</div>
+            <button onClick={() => this.goBack()}>Previous Step</button>
             <div>{this.renderHeader()}</div>
             <div>{this.renderCards()}</div>
-            <button onClick={this.props.history.goBack}>GO BACK!!</button>
           </div>
         </Content>
       </div>

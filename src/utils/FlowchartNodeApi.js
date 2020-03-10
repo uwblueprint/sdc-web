@@ -24,3 +24,6 @@ export const getChildren = (flowchartNodeId) =>
 
 export const getParents = (flowchartNodeId) =>
   req(HttpMethods.GET, `${baseUrl}/${flowchartNodeId}/parents`, null);
+
+export const getParent = (flowchartNodeId) =>
+  req(HttpMethods.GET, `${baseUrl}/${flowchartNodeId}/parent`, null);
