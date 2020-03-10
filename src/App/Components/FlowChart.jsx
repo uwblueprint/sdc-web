@@ -99,6 +99,7 @@ export default class FlowChart extends React.Component {
       }
       return (
         <span
+          key={index}
           onClick={() =>
             this.props.history.push(`/flowchart/${flowchartId}${suffix}`)
           }
