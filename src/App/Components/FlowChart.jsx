@@ -1,7 +1,11 @@
 import React from 'react';
 import Card from './Card.jsx';
 import { getFlowchart } from '../../utils/FlowchartApi';
-import { getParent, getChildren } from '../../utils/FlowchartNodeApi';
+import {
+  getChildren,
+  getParents,
+  getParent,
+} from '../../utils/FlowchartNodeApi';
 import { Box } from '@material-ui/core';
 import MenuBar from './MenuBar';
 import { QuestionContainer, Question, Content } from './Home';
@@ -9,12 +13,14 @@ import { QuestionContainer, Question, Content } from './Home';
 export default class FlowChart extends React.Component {
   state = {
     flowchartNodes: [],
+    parents: [],
     parentNode: {},
   };
 
   componentDidMount() {
     const { nodeId } = this.props.match.params;
     this.fetchFlowchartNodes(nodeId);
+    this.fetchParents(nodeId);
     this.fetchParentNode(nodeId);
   }
 
@@ -22,8 +28,24 @@ export default class FlowChart extends React.Component {
     const { nodeId } = this.props.match.params;
     if (prevProps.match.params.nodeId !== nodeId) {
       this.fetchFlowchartNodes(nodeId);
+      this.fetchParents(nodeId);
       this.fetchParentNode(nodeId);
     }
+  }
+
+  fetchParents(nodeId) {
+    const { flowchartId } = this.props.match.params;
+    return getFlowchart(flowchartId)
+      .then((flowchart) =>
+        getParents(nodeId || flowchart.flowchart.root_id).then((result) => {
+          this.setState({ parents: result });
+        })
+      )
+      .catch(({ response }) => {
+        if (!response) {
+          console.log('Error fetching flow charts');
+        }
+      });
   }
 
   goBack() {
@@ -86,6 +108,7 @@ export default class FlowChart extends React.Component {
         <MenuBar />
         <Content>
           <div style={{ fontFamily: 'Arial' }}>
+            <div>{this.renderBreadcrumbs()}</div>
             <button onClick={() => this.goBack()}>Previous Step</button>
             <div>{this.renderHeader()}</div>
             <div>{this.renderCards()}</div>
@@ -95,9 +118,35 @@ export default class FlowChart extends React.Component {
     );
   }
 
+  renderBreadcrumbs() {
+    const { parents } = this.state;
+    const { flowchartId } = this.props.match.params;
+    // console.log(parents);
+    return parents.map((parent, index, arr) => {
+      let suffix = '';
+      let arrow = ' > ';
+      if (index !== 0) {
+        suffix = `/node/${parents[index - 1].id}`;
+      }
+      if (parents.length === 1 || parents.length === index + 1) {
+        arrow = '';
+      }
+      return (
+        <span
+          key={index}
+          onClick={() =>
+            this.props.history.push(`/flowchart/${flowchartId}${suffix}`)
+          }
+        >
+          {parent.next_question}
+          {arrow}
+        </span>
+      );
+    });
+  }
+
   renderHeader() {
     const { flowchartNodes } = this.state;
-    console.log(flowchartNodes[0]);
     return (
       <QuestionContainer>
         <Question>
@@ -111,7 +160,7 @@ export default class FlowChart extends React.Component {
     const { flowchartNodes } = this.state;
     const { flowchartId } = this.props.match.params;
 
-    console.log(flowchartNodes);
+    // console.log(flowchartNodes);
     return flowchartNodes.map((flowchartNode) => (
       <Box key={flowchartNode.id}>
         <Card
