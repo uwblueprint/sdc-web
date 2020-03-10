@@ -1,7 +1,11 @@
 import React from 'react';
 import Card from './Card.jsx';
 import { getFlowchart } from '../../utils/FlowchartApi';
-import { getChildren, getParents, getParent } from '../../utils/FlowchartNodeApi';
+import {
+  getChildren,
+  getParents,
+  getParent,
+} from '../../utils/FlowchartNodeApi';
 import { Box } from '@material-ui/core';
 import MenuBar from './MenuBar';
 import { QuestionContainer, Question, Content } from './Home';
