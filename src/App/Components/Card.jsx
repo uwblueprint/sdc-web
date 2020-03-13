@@ -79,9 +79,11 @@ export default class Card extends React.Component {
           <Title>{this.props.title}</Title>
           <Description>{this.props.description}</Description>
         </div>
-        {onClick && <ButtonDiv>
-          <ArrowIcon />
-        </ButtonDiv>}
+        {onClick && (
+          <ButtonDiv>
+            <ArrowIcon />
+          </ButtonDiv>
+        )}
       </Content>
     );
   }

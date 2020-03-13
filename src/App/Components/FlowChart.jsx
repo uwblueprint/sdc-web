@@ -47,6 +47,22 @@ export default class FlowChart extends React.Component {
         }
       });
   }
+  isLastNode() {
+    const { flowchartNodes } = this.state;
+    return !flowchartNodes.some(({ is_leaf }) => !is_leaf);
+  }
+
+  fetchRootNode(flowchartId) {
+    return getFlowchart(flowchartId)
+      .then(({ flowchart }) => {
+        return this.fetchNode(flowchart.root_id);
+      })
+      .catch(({ response }) => {
+        if (!response) {
+          console.log('Error fetching flow charts');
+        }
+      });
+  }
 
   goBack() {
     const { flowchartId } = this.props.match.params;
@@ -81,20 +97,20 @@ export default class FlowChart extends React.Component {
 
   fetchChildNodes(nodeId) {
     return getChildren(nodeId)
-    .then((children) => {
-      if (children.length > 0) {
-        this.setState({ flowchartNodes: children });
-      } else {
-        // Routed here due to error in data, must go back
-        console.log("This node should be marked as a leaf");
-        this.props.history.goBack();
-      }
-    })
-    .catch(({response}) => {
-      if (!response) {
-        console.log('Error fetching flowchart nodes');
-      }
-    })
+      .then((children) => {
+        if (children.length > 0) {
+          this.setState({ flowchartNodes: children });
+        } else {
+          // Routed here due to error in data, must go back
+          console.log('This node should be marked as a leaf');
+          this.props.history.goBack();
+        }
+      })
+      .catch(({ response }) => {
+        if (!response) {
+          console.log('Error fetching flowchart nodes');
+        }
+      });
   }
 
   fetchFlowchartNodes() {
@@ -180,18 +196,13 @@ export default class FlowChart extends React.Component {
 
   renderCards() {
     const { flowchartNodes } = this.state;
-    return flowchartNodes.map(({id, header, text, is_leaf}) =>  { 
+    return flowchartNodes.map(({ id, header, text, is_leaf }) => {
       const onClick = is_leaf ? null : () => this.routeToNextNode(id);
       return (
-      <Box key={id}>
-        <Card
-          id={id}
-          title={header}
-          description={text}
-          onClick={onClick}
-        />
-      </Box>
-    )
+        <Box key={id}>
+          <Card id={id} title={header} description={text} onClick={onClick} />
+        </Box>
+      );
     });
   }
 }
