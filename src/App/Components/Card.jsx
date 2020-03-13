@@ -47,8 +47,9 @@ const ArrowIcon = styled(ArrowForwardIosIcon)`
 
 export default class Card extends React.Component {
   render() {
+    const { onClick } = this.props;
     return (
-      <Content>
+      <Content onClick={onClick}>
         {/* <Grid
           container
           spacing={3}
@@ -78,9 +79,9 @@ export default class Card extends React.Component {
           <Title>{this.props.title}</Title>
           <Description>{this.props.description}</Description>
         </div>
-        <ButtonDiv onClick={this.props.onClick}>
+        {onClick && <ButtonDiv>
           <ArrowIcon />
-        </ButtonDiv>
+        </ButtonDiv>}
       </Content>
     );
   }
