@@ -3,14 +3,13 @@ import styled from 'styled-components';
 import {
   AppBar,
   Toolbar,
-  Typography,
   IconButton,
   Drawer,
   List,
   ListItem,
   ListItemText,
 } from '@material-ui/core';
-import { Menu, Autorenew } from '@material-ui/icons';
+import { Menu } from '@material-ui/icons';
 import Icon from '../../assets/SocialDevelopmentCentre_Logo_WhiteOnBlack 1.png';
 
 const IconSize = {
@@ -59,7 +58,7 @@ export default function MenuBar(props) {
     if (e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) {
       return;
     }
-    state.top == true ? setState({ top: false }) : setState({ top: true });
+    state.top === true ? setState({ top: false }) : setState({ top: true });
   };
 
   const fullList = (side) => (
@@ -88,7 +87,7 @@ export default function MenuBar(props) {
     <React.Fragment>
       <AppBar position="relative" style={DrawerWorkAround}>
         <StyledToolbar>
-          <img src={Icon} style={IconSize} />
+          <img src={Icon} style={IconSize} alt="" />
           <StyledIconButton edge="end" color="inherit" aria-label="menu">
             <Menu onClick={toggleDrawer()}></Menu>
             {/* <Menu onClick={toggleDrawer('top', true)}></Menu> */}
