@@ -91,8 +91,8 @@ export default class FlowChart extends React.Component {
     );
   }
   isLastNode() {
-    const {flowchartNodes} = this.state;
-    return !flowchartNodes.some(({is_leaf}) => !is_leaf);
+    const { flowchartNodes } = this.state;
+    return !flowchartNodes.some(({ is_leaf }) => !is_leaf);
   }
 
   fetchChildNodes(nodeId) {
@@ -117,14 +117,14 @@ export default class FlowChart extends React.Component {
     const { flowchartId, nodeId } = this.props.match.params;
     if (flowchartId != null && nodeId == null) {
       getFlowchart(flowchartId)
-      .then(({flowchart}) => {
-        this.fetchChildNodes(flowchart.root_id);
-      })
-      .catch(({response}) => {
-        if (!response) {
-          console.log('Error fetching flow charts');
-        }
-      })
+        .then(({ flowchart }) => {
+          this.fetchChildNodes(flowchart.root_id);
+        })
+        .catch(({ response }) => {
+          if (!response) {
+            console.log('Error fetching flow charts');
+          }
+        });
     } else if (flowchartId != null && nodeId != null) {
       this.fetchChildNodes(nodeId);
     }
@@ -149,7 +149,9 @@ export default class FlowChart extends React.Component {
             <button onClick={() => this.goBack()}>Previous Step</button>
             <div>{this.renderHeader()}</div>
             <div>{this.renderCards()}</div>
-            {this.isLastNode() && <button onClick={() => this.routeToHome()}> Go Home </button>}
+            {this.isLastNode() && (
+              <button onClick={() => this.routeToHome()}> Go Home </button>
+            )}
           </div>
         </Content>
       </div>
