@@ -10,7 +10,18 @@ import {
   ListItem,
   ListItemText,
 } from '@material-ui/core';
-import { Menu } from '@material-ui/icons';
+import { Menu, Autorenew } from '@material-ui/icons';
+import Icon from '../../assets/SocialDevelopmentCentre_Logo_WhiteOnBlack 1.png';
+
+const IconSize = {
+  height: 60,
+  width: 'auto',
+};
+
+const DrawerWorkAround = {
+  position: 'relative',
+  zIndex: 1400,
+};
 
 const StyledToolbar = styled(Toolbar)`
   background-color: #2d2d2e;
@@ -20,8 +31,23 @@ const StyledIconButton = styled(IconButton)`
   margin-left: auto;
 `;
 
+const StyledList = styled(List)`
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-top: 64px;
+  @media (max-width: 600px) {
+    margin-top: 52px;
+  }
+`;
+
 const StyledListItem = styled(ListItem)`
+  background-color: #2d2d2e;
+  color: #ffffff;
   text-align: center;
+
+  &:hover {
+    color: #000000;
+  }
 `;
 
 export default function MenuBar(props) {
@@ -29,15 +55,11 @@ export default function MenuBar(props) {
     top: false,
   });
 
-  const toggleDrawer = (side, open) => (event) => {
-    if (
-      event.type === 'keydown' &&
-      (event.key === 'Tab' || event.key === 'Shift')
-    ) {
+  const toggleDrawer = () => (e) => {
+    if (e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) {
       return;
     }
-
-    setState({ ...state, [side]: open });
+    state.top == true ? setState({ top: false }) : setState({ top: true });
   };
 
   const fullList = (side) => (
@@ -46,7 +68,7 @@ export default function MenuBar(props) {
       onClick={toggleDrawer(side, false)}
       onKeyDown={toggleDrawer(side, false)}
     >
-      <List>
+      <StyledList>
         {[
           'Homepage',
           'About Us',
@@ -58,19 +80,18 @@ export default function MenuBar(props) {
             <ListItemText primary={text} />
           </StyledListItem>
         ))}
-      </List>
+      </StyledList>
     </div>
   );
 
   return (
     <React.Fragment>
-      <AppBar position="relative">
+      <AppBar position="relative" style={DrawerWorkAround}>
         <StyledToolbar>
-          <Typography variant="h6" noWrap>
-            Social Development Centre
-          </Typography>
+          <img src={Icon} style={IconSize} />
           <StyledIconButton edge="end" color="inherit" aria-label="menu">
-            <Menu onClick={toggleDrawer('top', true)}></Menu>
+            <Menu onClick={toggleDrawer()}></Menu>
+            {/* <Menu onClick={toggleDrawer('top', true)}></Menu> */}
           </StyledIconButton>
         </StyledToolbar>
       </AppBar>
