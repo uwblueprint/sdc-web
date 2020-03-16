@@ -1,7 +1,6 @@
 import React from 'react';
 import Card from './Card.jsx';
 import { getFlowchart } from '../../utils/FlowchartApi';
-import { getParent, getChildren } from '../../utils/FlowchartNodeApi';
 import { Box } from '@material-ui/core';
 import MenuBar from './MenuBar';
 import { QuestionContainer, Question, Content } from './Home';
@@ -25,6 +24,7 @@ export default class FlowChart extends React.Component {
       this.fetchParentNode(nodeId);
     }
   }
+
 
   goBack() {
     const { flowchartId } = this.props.match.params;
@@ -95,9 +95,35 @@ export default class FlowChart extends React.Component {
     );
   }
 
+  renderBreadcrumbs() {
+    const { parents } = this.state;
+    const { flowchartId } = this.props.match.params;
+    // console.log(parents);
+    return parents.map((parent, index, arr) => {
+      let suffix = '';
+      let arrow = ' > ';
+      if (index !== 0) {
+        suffix = `/node/${parents[index - 1].id}`;
+      }
+      if (parents.length === 1 || parents.length === index + 1) {
+        arrow = '';
+      }
+      return (
+        <span
+          key={index}
+          onClick={() =>
+            this.props.history.push(`/flowchart/${flowchartId}${suffix}`)
+          }
+        >
+          {parent.next_question}
+          {arrow}
+        </span>
+      );
+    });
+  }
+
   renderHeader() {
     const { flowchartNodes } = this.state;
-    console.log(flowchartNodes[0]);
     return (
       <QuestionContainer>
         <Question>
@@ -111,7 +137,7 @@ export default class FlowChart extends React.Component {
     const { flowchartNodes } = this.state;
     const { flowchartId } = this.props.match.params;
 
-    console.log(flowchartNodes);
+    // console.log(flowchartNodes);
     return flowchartNodes.map((flowchartNode) => (
       <Box key={flowchartNode.id}>
         <Card
