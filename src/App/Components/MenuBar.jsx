@@ -10,7 +10,7 @@ import {
   ListItemText,
 } from '@material-ui/core';
 import { Menu } from '@material-ui/icons';
-import Icon from '../../assets/SocialDevelopmentCentre_Logo_WhiteOnBlack 1.png';
+import Icon from '../../assets/SocialDevelopmentCentre_Logo_WhiteOnBlack_1.png';
 
 const IconSize = {
   height: 60,
