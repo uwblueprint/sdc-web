@@ -1,7 +1,11 @@
 import React from 'react';
 import Card from './Card.jsx';
 import { getFlowchart } from '../../utils/FlowchartApi';
-import { getParent, getChildren } from '../../utils/FlowchartNodeApi';
+import {
+  getParent,
+  getParents,
+  getChildren,
+} from '../../utils/FlowchartNodeApi';
 import { Box } from '@material-ui/core';
 import MenuBar from './MenuBar';
 import { QuestionContainer, Question, Content } from './Home';
@@ -9,6 +13,7 @@ import { QuestionContainer, Question, Content } from './Home';
 export default class FlowChart extends React.Component {
   state = {
     flowchartNodes: [],
+    parents: [],
     parentNode: {},
   };
 
@@ -136,6 +141,7 @@ export default class FlowChart extends React.Component {
         <MenuBar />
         <Content>
           <div style={{ fontFamily: 'Arial' }}>
+            <div>{this.renderBreadcrumbs()}</div>
             <button onClick={() => this.goBack()}>Previous Step</button>
             <div>{this.renderHeader()}</div>
             <div>{this.renderCards()}</div>
