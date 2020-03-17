@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from './Card.jsx';
 import { getFlowchart } from '../../utils/FlowchartApi';
-import { getParent, getChildren } from '../../utils/FlowchartNodeApi';	
+import { getParent, getChildren } from '../../utils/FlowchartNodeApi';
 import { Box } from '@material-ui/core';
 import MenuBar from './MenuBar';
 import { QuestionContainer, Question, Content } from './Home';
@@ -25,7 +25,6 @@ export default class FlowChart extends React.Component {
       this.fetchParentNode(nodeId);
     }
   }
-
 
   goBack() {
     const { flowchartId } = this.props.match.params;
