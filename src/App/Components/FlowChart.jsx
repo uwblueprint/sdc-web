@@ -2,9 +2,9 @@ import React from 'react';
 import Card from './Card.jsx';
 import { getFlowchart } from '../../utils/FlowchartApi';
 import {
-  getChildren,
-  getParents,
   getParent,
+  getParents,
+  getChildren,
 } from '../../utils/FlowchartNodeApi';
 import { Box } from '@material-ui/core';
 import MenuBar from './MenuBar';
