@@ -90,10 +90,6 @@ export default class FlowChart extends React.Component {
         })
     );
   }
-  isLastNode() {
-    const { flowchartNodes } = this.state;
-    return !flowchartNodes.some(({ is_leaf }) => !is_leaf);
-  }
 
   fetchChildNodes(nodeId) {
     return getChildren(nodeId)
