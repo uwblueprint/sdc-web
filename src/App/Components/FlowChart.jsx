@@ -19,15 +19,15 @@ export default class FlowChart extends React.Component {
 
   componentDidMount() {
     const { nodeId } = this.props.match.params;
-    this.fetchFlowchartNodes(nodeId);
     this.fetchParents(nodeId);
     this.fetchParentNode(nodeId);
+    this.fetchFlowchartNodes();
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     const { nodeId } = this.props.match.params;
     if (prevProps.match.params.nodeId !== nodeId) {
-      this.fetchFlowchartNodes(nodeId);
+      this.fetchFlowchartNodes();
       this.fetchParents(nodeId);
       this.fetchParentNode(nodeId);
     }
@@ -41,6 +41,22 @@ export default class FlowChart extends React.Component {
           this.setState({ parents: result });
         })
       )
+      .catch(({ response }) => {
+        if (!response) {
+          console.log('Error fetching flow charts');
+        }
+      });
+  }
+  isLastNode() {
+    const { flowchartNodes } = this.state;
+    return !flowchartNodes.some(({ is_leaf }) => !is_leaf);
+  }
+
+  fetchRootNode(flowchartId) {
+    return getFlowchart(flowchartId)
+      .then(({ flowchart }) => {
+        return this.fetchNode(flowchart.root_id);
+      })
       .catch(({ response }) => {
         if (!response) {
           console.log('Error fetching flow charts');
@@ -75,34 +91,51 @@ export default class FlowChart extends React.Component {
     );
   }
 
-  fetchFlowchartNodes(nodeId) {
-    const { flowchartId } = this.props.match.params;
-    return getFlowchart(flowchartId)
-      .then((flowchart) =>
-        getChildren(nodeId || flowchart.flowchart.root_id)
-          .then((children) => {
-            if (children.length > 0) {
-              this.setState({ flowchartNodes: children });
-              return true;
-            }
-            return false;
-          })
-          .catch(({ response }) => {
-            if (!response) {
-              console.log('Error fetching flowchart nodes');
-            }
-          })
-      )
+  fetchChildNodes(nodeId) {
+    return getChildren(nodeId)
+      .then((children) => {
+        if (children.length > 0) {
+          this.setState({ flowchartNodes: children });
+        } else {
+          // Routed here due to error in data, must go back
+          console.log('This node should be marked as a leaf');
+          this.props.history.goBack();
+        }
+      })
       .catch(({ response }) => {
         if (!response) {
-          console.log('Error fetching flow charts');
+          console.log('Error fetching flowchart nodes');
         }
       });
   }
 
+  fetchFlowchartNodes() {
+    const { flowchartId, nodeId } = this.props.match.params;
+    if (flowchartId != null && nodeId == null) {
+      getFlowchart(flowchartId)
+        .then(({ flowchart }) => {
+          this.fetchChildNodes(flowchart.root_id);
+        })
+        .catch(({ response }) => {
+          if (!response) {
+            console.log('Error fetching flow charts');
+          }
+        });
+    } else if (flowchartId != null && nodeId != null) {
+      this.fetchChildNodes(nodeId);
+    }
+  }
+
+  routeToHome() {
+    this.props.history.push('/');
+  }
+
+  routeToNextNode(nodeId) {
+    const { flowchartId } = this.props.match.params;
+    this.props.history.push(`/flowchart/${flowchartId}/node/${nodeId}`);
+  }
+
   render() {
-    // render the flow chart components here
-    // const { id } = this.props.match.params;
     return (
       <div>
         <MenuBar />
@@ -112,6 +145,9 @@ export default class FlowChart extends React.Component {
             <button onClick={() => this.goBack()}>Previous Step</button>
             <div>{this.renderHeader()}</div>
             <div>{this.renderCards()}</div>
+            {this.isLastNode() && (
+              <button onClick={() => this.routeToHome()}> Go Home </button>
+            )}
           </div>
         </Content>
       </div>
@@ -158,26 +194,13 @@ export default class FlowChart extends React.Component {
 
   renderCards() {
     const { flowchartNodes } = this.state;
-    const { flowchartId } = this.props.match.params;
-
-    // console.log(flowchartNodes);
-    return flowchartNodes.map((flowchartNode) => (
-      <Box key={flowchartNode.id}>
-        <Card
-          id={flowchartNode.id}
-          title={flowchartNode.header}
-          description={flowchartNode.text}
-          onClick={() => {
-            this.fetchFlowchartNodes(flowchartNode.id).then((success) => {
-              if (success) {
-                this.props.history.push(
-                  `/flowchart/${flowchartId}/node/${flowchartNode.id}`
-                );
-              }
-            });
-          }}
-        />
-      </Box>
-    ));
+    return flowchartNodes.map(({ id, header, text, is_leaf }) => {
+      const onClick = is_leaf ? null : () => this.routeToNextNode(id);
+      return (
+        <Box key={id}>
+          <Card id={id} title={header} description={text} onClick={onClick} />
+        </Box>
+      );
+    });
   }
 }
