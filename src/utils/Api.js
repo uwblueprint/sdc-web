@@ -4,6 +4,9 @@ export const req = (httpMethod, url, requestData) => {
   const axiosConfig = {
     method: httpMethod,
     url,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
     responseType: 'json',
     data: requestData,
   };
