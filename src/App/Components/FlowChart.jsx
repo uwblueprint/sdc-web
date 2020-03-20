@@ -1,14 +1,40 @@
 import React from 'react';
 import Card from './Card.jsx';
+import Grid from '@material-ui/core/Grid';
+import styled from 'styled-components';
 import { getFlowchart } from '../../utils/FlowchartApi';
 import {
   getParent,
   getParents,
   getChildren,
 } from '../../utils/FlowchartNodeApi';
-import { Box } from '@material-ui/core';
+import { Box, Divider } from '@material-ui/core';
+import { ArrowBackIos } from '@material-ui/icons';
 import MenuBar from './MenuBar';
 import { QuestionContainer, Question, Content } from './Home';
+
+const DesktopBreadcrumbs = styled(Grid)`
+  padding-top: 30px;
+  @media (max-width: 576px) {
+    display: none;
+  }
+`;
+
+const MobileBreadcrumb = styled(Grid)`
+  text-align: center;
+  @media (min-width: 576px) {
+    display: none;
+  }
+`;
+
+const MobileBreadcrumbItems = styled(Grid)`
+  padding: 30px 0px;
+  text-decoration: underline;
+`;
+
+const StyledArrowBackIos = styled(ArrowBackIos)`
+  font-size: 16px;
+`;
 
 export default class FlowChart extends React.Component {
   state = {
@@ -67,7 +93,6 @@ export default class FlowChart extends React.Component {
   goBack() {
     const { flowchartId } = this.props.match.params;
     if (this.state.parentNode !== null) {
-      alert(this.state.parentNode.id);
       this.props.history.push(
         `/flowchart/${flowchartId}/node/${this.state.parentNode.id}`
       );
@@ -141,8 +166,21 @@ export default class FlowChart extends React.Component {
         <MenuBar />
         <Content>
           <div style={{ fontFamily: 'Arial' }}>
-            <div>{this.renderBreadcrumbs()}</div>
-            <button onClick={() => this.goBack()}>Previous Step</button>
+            <MobileBreadcrumb container justify="space-evenly">
+              <MobileBreadcrumbItems item xs={5}>
+                <div onClick={() => this.goBack()}>
+                  <StyledArrowBackIos />
+                  Previous Step
+                </div>
+              </MobileBreadcrumbItems>
+              <Divider orientation="vertical" flexItem />
+              <MobileBreadcrumbItems item xs={5}>
+                <div onClick={() => this.routeToHome()}>Homepage</div>
+              </MobileBreadcrumbItems>
+            </MobileBreadcrumb>
+            <Divider />
+
+            <DesktopBreadcrumbs>{this.renderBreadcrumbs()}</DesktopBreadcrumbs>
             <div>{this.renderHeader()}</div>
             <div>{this.renderCards()}</div>
             {this.isLastNode() && (
@@ -157,15 +195,14 @@ export default class FlowChart extends React.Component {
   renderBreadcrumbs() {
     const { parents } = this.state;
     const { flowchartId } = this.props.match.params;
-    // console.log(parents);
     return parents.map((parent, index, arr) => {
       let suffix = '';
-      let arrow = ' > ';
+      let arrow = '  >  ';
       if (index !== 0) {
         suffix = `/node/${parents[index - 1].id}`;
       }
       if (parents.length === 1 || parents.length === index + 1) {
-        arrow = '';
+        arrow = null;
       }
       return (
         <span
@@ -174,7 +211,9 @@ export default class FlowChart extends React.Component {
             this.props.history.push(`/flowchart/${flowchartId}${suffix}`)
           }
         >
-          {parent.next_question}
+          <span style={{ textDecoration: 'underline' }}>
+            {parent.next_question}
+          </span>
           {arrow}
         </span>
       );
