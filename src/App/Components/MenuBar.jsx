@@ -70,14 +70,36 @@ export default function MenuBar(props) {
     >
       <StyledList>
         {[
-          'Homepage',
-          'About Us',
-          'Get Involved',
-          'Get Informed',
-          'Resource Directory',
-        ].map((text, index) => (
-          <StyledListItem button key={text}>
-            <ListItemText primary={text} />
+          { title: 'Homepage', link: '', openMethod: '_self' },
+          {
+            title: 'About Us',
+            link: 'http://www.waterlooregion.org/content/about-us',
+            openMethod: '_blank',
+          },
+          {
+            title: 'Get Involved',
+            link: 'http://www.waterlooregion.org/community-development',
+            openMethod: '_blank',
+          },
+          {
+            title: 'Get Informed',
+            link: 'http://www.waterlooregion.org/community-information',
+            openMethod: '_blank',
+          },
+          {
+            title: 'Resource Directory',
+            link: 'https://www.wwhealthline.ca',
+            openMethod: '_blank',
+          },
+        ].map((obj, index) => (
+          <StyledListItem
+            button
+            key={obj.title}
+            onClick={() => {
+              window.open(obj.link, obj.openMethod);
+            }}
+          >
+            <ListItemText primary={obj.title} />
           </StyledListItem>
         ))}
       </StyledList>
