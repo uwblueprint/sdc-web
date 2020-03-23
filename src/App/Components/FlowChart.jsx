@@ -44,19 +44,12 @@ export default class FlowChart extends React.Component {
   };
 
   componentDidMount() {
-    const { nodeId } = this.props.match.params;
-    // this.fetchParents(nodeId);
-    // this.fetchParentNode(nodeId);
-    // this.fetchNodes();
     this.fetchData();
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate(prevProps) {
     const { nodeId } = this.props.match.params;
     if (prevProps.match.params.nodeId !== nodeId) {
-      // this.fetchNodes();
-      // this.fetchParents(nodeId);
-      // this.fetchParentNode(nodeId);
       this.fetchData();
     }
   }
@@ -131,7 +124,6 @@ export default class FlowChart extends React.Component {
   fetchData() {
     this.fetchNextNode()
       .then((nodeId) => {
-        console.log(nodeId);
         return Promise.all([
           this.fetchChildNodes(nodeId),
           this.fetchParentNode(nodeId),
@@ -139,7 +131,6 @@ export default class FlowChart extends React.Component {
         ]);
       })
       .then((values) => {
-        console.log(values);
         this.setState({
           flowchartNodes: values[0] || [],
           parentNode: values[1],
