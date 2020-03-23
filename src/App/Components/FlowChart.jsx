@@ -95,7 +95,7 @@ export default class FlowChart extends React.Component {
         if (e) {
           console.log(e);
         }
-      })
+      });
   }
 
   fetchChildNodes(nodeId) {
@@ -120,7 +120,9 @@ export default class FlowChart extends React.Component {
     const { flowchartId } = this.props.match.params;
     const { nodeId } = this.props.match.params;
     if (flowchartId != null && nodeId == null) {
-      return getFlowchart(flowchartId).then(({ flowchart: { root_id } }) => root_id);
+      return getFlowchart(flowchartId).then(
+        ({ flowchart: { root_id } }) => root_id
+      );
     } else if (flowchartId != null && nodeId != null) {
       return Promise.resolve(nodeId);
     }
@@ -130,11 +132,19 @@ export default class FlowChart extends React.Component {
     this.fetchNextNode()
       .then((nodeId) => {
         console.log(nodeId);
-        return Promise.all([this.fetchChildNodes(nodeId), this.fetchParentNode(nodeId), this.fetchParents(nodeId)])
+        return Promise.all([
+          this.fetchChildNodes(nodeId),
+          this.fetchParentNode(nodeId),
+          this.fetchParents(nodeId),
+        ]);
       })
       .then((values) => {
         console.log(values);
-        this.setState({ flowchartNodes: values[0] || [], parentNode: values[1], parents: values[2] || [] });
+        this.setState({
+          flowchartNodes: values[0] || [],
+          parentNode: values[1],
+          parents: values[2] || [],
+        });
       })
       .catch(({ response }) => {
         if (!response) {
