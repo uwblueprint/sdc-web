@@ -45,28 +45,25 @@ export default class FlowChart extends React.Component {
 
   componentDidMount() {
     const { nodeId } = this.props.match.params;
-    this.fetchParents(nodeId);
-    this.fetchParentNode(nodeId);
-    this.fetchFlowchartNodes();
+    // this.fetchParents(nodeId);
+    // this.fetchParentNode(nodeId);
+    // this.fetchNodes();
+    this.fetchData();
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     const { nodeId } = this.props.match.params;
     if (prevProps.match.params.nodeId !== nodeId) {
-      this.fetchFlowchartNodes();
-      this.fetchParents(nodeId);
-      this.fetchParentNode(nodeId);
+      // this.fetchNodes();
+      // this.fetchParents(nodeId);
+      // this.fetchParentNode(nodeId);
+      this.fetchData();
     }
   }
 
   fetchParents(nodeId) {
-    const { flowchartId } = this.props.match.params;
-    return getFlowchart(flowchartId)
-      .then((flowchart) =>
-        getParents(nodeId || flowchart.flowchart.root_id).then((result) => {
-          this.setState({ parents: result });
-        })
-      )
+    return getParents(nodeId)
+      .then((parents) => parents)
       .catch(({ response }) => {
         if (!response) {
           console.log('Error fetching flow charts');
@@ -76,18 +73,6 @@ export default class FlowChart extends React.Component {
   isLastNode() {
     const { flowchartNodes } = this.state;
     return !flowchartNodes.some(({ is_leaf }) => !is_leaf);
-  }
-
-  fetchRootNode(flowchartId) {
-    return getFlowchart(flowchartId)
-      .then(({ flowchart }) => {
-        return this.fetchNode(flowchart.root_id);
-      })
-      .catch(({ response }) => {
-        if (!response) {
-          console.log('Error fetching flow charts');
-        }
-      });
   }
 
   goBack() {
@@ -102,25 +87,22 @@ export default class FlowChart extends React.Component {
   }
 
   fetchParentNode(nodeId) {
-    const { flowchartId } = this.props.match.params;
-    return getFlowchart(flowchartId).then((flowchart) =>
-      getParent(nodeId || flowchart.flowchart.root_id)
-        .then((parent) => {
-          this.setState({ parentNode: parent });
-        })
-        .catch((e) => {
-          if (e) {
-            console.log(e);
-          }
-        })
-    );
+    return getParent(nodeId)
+      .then((parent) => {
+        return parent;
+      })
+      .catch((e) => {
+        if (e) {
+          console.log(e);
+        }
+      })
   }
 
   fetchChildNodes(nodeId) {
     return getChildren(nodeId)
       .then((children) => {
         if (children.length > 0) {
-          this.setState({ flowchartNodes: children });
+          return children;
         } else {
           // Routed here due to error in data, must go back
           console.log('This node should be marked as a leaf');
@@ -134,21 +116,31 @@ export default class FlowChart extends React.Component {
       });
   }
 
-  fetchFlowchartNodes() {
-    const { flowchartId, nodeId } = this.props.match.params;
+  fetchNextNode() {
+    const { flowchartId } = this.props.match.params;
+    const { nodeId } = this.props.match.params;
     if (flowchartId != null && nodeId == null) {
-      getFlowchart(flowchartId)
-        .then(({ flowchart }) => {
-          this.fetchChildNodes(flowchart.root_id);
-        })
-        .catch(({ response }) => {
-          if (!response) {
-            console.log('Error fetching flow charts');
-          }
-        });
+      return getFlowchart(flowchartId).then(({ flowchart: { root_id } }) => root_id);
     } else if (flowchartId != null && nodeId != null) {
-      this.fetchChildNodes(nodeId);
+      return Promise.resolve(nodeId);
     }
+  }
+
+  fetchData() {
+    this.fetchNextNode()
+      .then((nodeId) => {
+        console.log(nodeId);
+        return Promise.all([this.fetchChildNodes(nodeId), this.fetchParentNode(nodeId), this.fetchParents(nodeId)])
+      })
+      .then((values) => {
+        console.log(values);
+        this.setState({ flowchartNodes: values[0] || [], parentNode: values[1], parents: values[2] || [] });
+      })
+      .catch(({ response }) => {
+        if (!response) {
+          console.log('Error fetching flow charts');
+        }
+      });
   }
 
   routeToHome() {
