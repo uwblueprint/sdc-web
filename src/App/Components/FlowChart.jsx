@@ -81,9 +81,7 @@ export default class FlowChart extends React.Component {
 
   fetchParentNode(nodeId) {
     return getParent(nodeId)
-      .then((parent) => {
-        return parent;
-      })
+      .then((parent) => parent)
       .catch((e) => {
         if (e) {
           console.log(e);
@@ -96,11 +94,10 @@ export default class FlowChart extends React.Component {
       .then((children) => {
         if (children.length > 0) {
           return children;
-        } else {
-          // Routed here due to error in data, must go back
-          console.log('This node should be marked as a leaf');
-          this.props.history.goBack();
         }
+        // Routed here due to error in data, must go back
+        console.log('This node should be marked as a leaf');
+        this.props.history.goBack();
       })
       .catch(({ response }) => {
         if (!response) {
@@ -123,13 +120,13 @@ export default class FlowChart extends React.Component {
 
   fetchData() {
     this.fetchNextNode()
-      .then((nodeId) => {
-        return Promise.all([
+      .then((nodeId) =>
+        Promise.all([
           this.fetchChildNodes(nodeId),
           this.fetchParentNode(nodeId),
           this.fetchParents(nodeId),
-        ]);
-      })
+        ])
+      )
       .then((values) => {
         this.setState({
           flowchartNodes: values[0] || [],
