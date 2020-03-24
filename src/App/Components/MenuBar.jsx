@@ -49,9 +49,8 @@ const MobileIconButton = styled(IconButton)`
 const MobileList = styled(List)`
   padding-top: 0px;
   padding-bottom: 0px;
-  margin-top: 64px;
   @media (max-width: 600px) {
-    margin-top: 52px;
+    margin-top: 0px;
   }
 `;
 
@@ -160,8 +159,11 @@ export default function MenuBar(props) {
   };
 
   return (
-    <React.Fragment style={{ fontFamily: 'Arial' }}>
-      <AppBar position="relative" style={DrawerWorkAround}>
+    <React.Fragment>
+      <AppBar
+        position="relative"
+        style={(DrawerWorkAround, { fontFamily: 'Arial' })}
+      >
         <MobileToolbar>
           <img src={Icon} style={IconSize} alt="" />
           <MobileIconButton edge="end" color="inherit" aria-label="menu">
