@@ -2,7 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import {
   AppBar,
+  Box,
   Toolbar,
+  Divider,
+  Grid,
   IconButton,
   Drawer,
   List,
@@ -23,15 +26,27 @@ const DrawerWorkAround = {
   zIndex: 1400,
 };
 
-const StyledToolbar = styled(Toolbar)`
+const MobileToolbar = styled(Toolbar)`
   background-color: #2d2d2e;
+  @media (min-width: 601px) {
+    display: none;
+  }
 `;
 
-const StyledIconButton = styled(IconButton)`
+const DesktopToolbar = styled(Grid)`
+  background-color: #2d2d2e;
+  padding: 0px 16px;
+  @media (max-width: 601px) {
+    display: none;
+  }
+`;
+
+const DesktopToolbarItem = styled(Grid)``;
+const MobileIconButton = styled(IconButton)`
   margin-left: auto;
 `;
 
-const StyledList = styled(List)`
+const MobileList = styled(List)`
   padding-top: 0px;
   padding-bottom: 0px;
   margin-top: 64px;
@@ -40,7 +55,7 @@ const StyledList = styled(List)`
   }
 `;
 
-const StyledListItem = styled(ListItem)`
+const MobileListItem = styled(ListItem)`
   background-color: #2d2d2e;
   color: #ffffff;
   text-align: center;
@@ -68,7 +83,7 @@ export default function MenuBar(props) {
       onClick={toggleDrawer(side, false)}
       onKeyDown={toggleDrawer(side, false)}
     >
-      <StyledList>
+      <MobileList>
         {[
           { title: 'Homepage', link: '', openMethod: '_self' },
           {
@@ -92,7 +107,7 @@ export default function MenuBar(props) {
             openMethod: '_blank',
           },
         ].map((obj, index) => (
-          <StyledListItem
+          <MobileListItem
             button
             key={obj.title}
             onClick={() => {
@@ -100,22 +115,66 @@ export default function MenuBar(props) {
             }}
           >
             <ListItemText primary={obj.title} />
-          </StyledListItem>
+          </MobileListItem>
         ))}
-      </StyledList>
+      </MobileList>
     </div>
   );
 
+  const renderDesktopNav = () => {
+    return [
+      { title: 'Homepage', link: '', openMethod: '_self' },
+      {
+        title: 'About Us',
+        link: 'http://www.waterlooregion.org/content/about-us',
+        openMethod: '_blank',
+      },
+      {
+        title: 'Get Involved',
+        link: 'http://www.waterlooregion.org/community-development',
+        openMethod: '_blank',
+      },
+      {
+        title: 'Get Informed',
+        link: 'http://www.waterlooregion.org/community-information',
+        openMethod: '_blank',
+      },
+      {
+        title: 'Resource Directory',
+        link: 'https://www.wwhealthline.ca',
+        openMethod: '_blank',
+      },
+    ].map((obj, index) => (
+      <DesktopToolbarItem
+        container
+        item
+        justify="center"
+        xs={2}
+        onClick={() => {
+          window.open(obj.link, obj.openMethod);
+        }}
+      >
+        {obj.title}
+      </DesktopToolbarItem>
+    ));
+  };
+
   return (
-    <React.Fragment>
+    <React.Fragment style={{ fontFamily: 'Arial' }}>
       <AppBar position="relative" style={DrawerWorkAround}>
-        <StyledToolbar>
+        <MobileToolbar>
           <img src={Icon} style={IconSize} alt="" />
-          <StyledIconButton edge="end" color="inherit" aria-label="menu">
+          <MobileIconButton edge="end" color="inherit" aria-label="menu">
             <Menu onClick={toggleDrawer()}></Menu>
             {/* <Menu onClick={toggleDrawer('top', true)}></Menu> */}
-          </StyledIconButton>
-        </StyledToolbar>
+          </MobileIconButton>
+        </MobileToolbar>
+        <DesktopToolbar container direction="row" alignItems="center">
+          <Grid item sm={2} md={2}>
+            <img src={Icon} style={IconSize} alt="" />
+          </Grid>
+          {renderDesktopNav()}
+        </DesktopToolbar>
       </AppBar>
       <Drawer
         anchor="top"
