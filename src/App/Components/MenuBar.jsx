@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {
   AppBar,
   Toolbar,
+  Grid,
   IconButton,
   Drawer,
   List,
@@ -23,24 +24,35 @@ const DrawerWorkAround = {
   zIndex: 1400,
 };
 
-const StyledToolbar = styled(Toolbar)`
+const MobileToolbar = styled(Toolbar)`
   background-color: #2d2d2e;
-`;
-
-const StyledIconButton = styled(IconButton)`
-  margin-left: auto;
-`;
-
-const StyledList = styled(List)`
-  padding-top: 0px;
-  padding-bottom: 0px;
-  margin-top: 64px;
-  @media (max-width: 600px) {
-    margin-top: 52px;
+  @media (min-width: 601px) {
+    display: none;
   }
 `;
 
-const StyledListItem = styled(ListItem)`
+const DesktopToolbar = styled(Grid)`
+  background-color: #2d2d2e;
+  padding: 0px 16px;
+  @media (max-width: 601px) {
+    display: none;
+  }
+`;
+
+const DesktopToolbarItem = styled(Grid)``;
+const MobileIconButton = styled(IconButton)`
+  margin-left: auto;
+`;
+
+const MobileList = styled(List)`
+  padding-top: 0px;
+  padding-bottom: 0px;
+  @media (max-width: 600px) {
+    margin-top: 0px;
+  }
+`;
+
+const MobileListItem = styled(ListItem)`
   background-color: #2d2d2e;
   color: #ffffff;
   text-align: center;
@@ -68,32 +80,101 @@ export default function MenuBar(props) {
       onClick={toggleDrawer(side, false)}
       onKeyDown={toggleDrawer(side, false)}
     >
-      <StyledList>
+      <MobileList>
         {[
-          'Homepage',
-          'About Us',
-          'Get Involved',
-          'Get Informed',
-          'Resource Directory',
-        ].map((text, index) => (
-          <StyledListItem button key={text}>
-            <ListItemText primary={text} />
-          </StyledListItem>
+          { title: 'Homepage', link: '', openMethod: '_self' },
+          {
+            title: 'About Us',
+            link: 'http://www.waterlooregion.org/content/about-us',
+            openMethod: '_blank',
+          },
+          {
+            title: 'Get Involved',
+            link: 'http://www.waterlooregion.org/community-development',
+            openMethod: '_blank',
+          },
+          {
+            title: 'Get Informed',
+            link: 'http://www.waterlooregion.org/community-information',
+            openMethod: '_blank',
+          },
+          {
+            title: 'Resource Directory',
+            link: 'https://www.wwhealthline.ca',
+            openMethod: '_blank',
+          },
+        ].map((obj, index) => (
+          <MobileListItem
+            button
+            key={obj.title}
+            onClick={() => {
+              window.open(obj.link, obj.openMethod);
+            }}
+          >
+            <ListItemText primary={obj.title} />
+          </MobileListItem>
         ))}
-      </StyledList>
+      </MobileList>
     </div>
   );
 
+  const renderDesktopNav = () => {
+    return [
+      { title: 'Homepage', link: '', openMethod: '_self' },
+      {
+        title: 'About Us',
+        link: 'http://www.waterlooregion.org/content/about-us',
+        openMethod: '_blank',
+      },
+      {
+        title: 'Get Involved',
+        link: 'http://www.waterlooregion.org/community-development',
+        openMethod: '_blank',
+      },
+      {
+        title: 'Get Informed',
+        link: 'http://www.waterlooregion.org/community-information',
+        openMethod: '_blank',
+      },
+      {
+        title: 'Resource Directory',
+        link: 'https://www.wwhealthline.ca',
+        openMethod: '_blank',
+      },
+    ].map((obj, index) => (
+      <DesktopToolbarItem
+        container
+        item
+        justify="center"
+        xs={2}
+        onClick={() => {
+          window.open(obj.link, obj.openMethod);
+        }}
+      >
+        {obj.title}
+      </DesktopToolbarItem>
+    ));
+  };
+
   return (
     <React.Fragment>
-      <AppBar position="relative" style={DrawerWorkAround}>
-        <StyledToolbar>
+      <AppBar
+        position="relative"
+        style={(DrawerWorkAround, { fontFamily: 'Arial' })}
+      >
+        <MobileToolbar>
           <img src={Icon} style={IconSize} alt="" />
-          <StyledIconButton edge="end" color="inherit" aria-label="menu">
+          <MobileIconButton edge="end" color="inherit" aria-label="menu">
             <Menu onClick={toggleDrawer()}></Menu>
             {/* <Menu onClick={toggleDrawer('top', true)}></Menu> */}
-          </StyledIconButton>
-        </StyledToolbar>
+          </MobileIconButton>
+        </MobileToolbar>
+        <DesktopToolbar container direction="row" alignItems="center">
+          <Grid item sm={2} md={2}>
+            <img src={Icon} style={IconSize} alt="" />
+          </Grid>
+          {renderDesktopNav()}
+        </DesktopToolbar>
       </AppBar>
       <Drawer
         anchor="top"

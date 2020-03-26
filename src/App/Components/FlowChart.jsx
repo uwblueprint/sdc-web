@@ -15,14 +15,14 @@ import { QuestionContainer, Question, Content } from './Home';
 
 const DesktopBreadcrumbs = styled(Grid)`
   padding-top: 30px;
-  @media (max-width: 576px) {
+  @media (max-width: 600px) {
     display: none;
   }
 `;
 
 const MobileBreadcrumb = styled(Grid)`
   text-align: center;
-  @media (min-width: 576px) {
+  @media (min-width: 600px) {
     display: none;
   }
 `;
@@ -176,9 +176,9 @@ export default class FlowChart extends React.Component {
             <DesktopBreadcrumbs>{this.renderBreadcrumbs()}</DesktopBreadcrumbs>
             <div>{this.renderHeader()}</div>
             <div>{this.renderCards()}</div>
-            {this.isLastNode() && (
+            {/* {this.isLastNode() && (
               <button onClick={() => this.routeToHome()}> Go Home </button>
-            )}
+            )} */}
           </div>
         </Content>
       </div>
