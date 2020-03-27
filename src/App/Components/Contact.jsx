@@ -39,45 +39,45 @@ const ContactGroup = styled.div`
   }
 `;
 
-export default function () {
-    return (
-        <ContactContainer>
-            <ContactGroup>
-                <ContactRow>
-                    <ContactItem>Bylaw Kitchener</ContactItem>
-                    <ContactItemNumber>519-741-2345</ContactItemNumber>
-                </ContactRow>
-                <ContactRow>
-                    <ContactItem>Bylaw Waterloo</ContactItem>
-                    <ContactItemNumber>519-889-1550</ContactItemNumber>
-                </ContactRow>
-                <ContactRow>
-                    <ContactItem>Fire Prevention</ContactItem>
-                    <ContactItemNumber>519-889-1550</ContactItemNumber>
-                </ContactRow>
-                <ContactRow>
-                    <ContactItem>Police (Emergency)</ContactItem>
-                    <ContactItemNumber>911</ContactItemNumber>
-                </ContactRow>
-            </ContactGroup>
-            <ContactGroup>
-                <ContactRow>
-                    <ContactItem>Police (Non-Emergency)</ContactItem>
-                    <ContactItemNumber>519-653-7700</ContactItemNumber>
-                </ContactRow>
-                <ContactRow>
-                    <ContactItem>Waterloo Crime Stoppers</ContactItem>
-                    <ContactItemNumber>1-800-22-8477</ContactItemNumber>
-                </ContactRow>
-                <ContactRow>
-                    <ContactItem>WR Community Legal Services</ContactItem>
-                    <ContactItemNumber>519-743-0254</ContactItemNumber>
-                </ContactRow>
-                <ContactRow>
-                    <ContactItem>R.E.N.T</ContactItem>
-                    <ContactItemNumber>519-579-3800</ContactItemNumber>
-                </ContactRow>
-            </ContactGroup>
-        </ContactContainer>
-    );
+export default function() {
+  return (
+    <ContactContainer>
+      <ContactGroup>
+        <ContactRow>
+          <ContactItem>Bylaw Kitchener</ContactItem>
+          <ContactItemNumber>519-741-2345</ContactItemNumber>
+        </ContactRow>
+        <ContactRow>
+          <ContactItem>Bylaw Waterloo</ContactItem>
+          <ContactItemNumber>519-889-1550</ContactItemNumber>
+        </ContactRow>
+        <ContactRow>
+          <ContactItem>Fire Prevention</ContactItem>
+          <ContactItemNumber>519-889-1550</ContactItemNumber>
+        </ContactRow>
+        <ContactRow>
+          <ContactItem>Police (Emergency)</ContactItem>
+          <ContactItemNumber>911</ContactItemNumber>
+        </ContactRow>
+      </ContactGroup>
+      <ContactGroup>
+        <ContactRow>
+          <ContactItem>Police (Non-Emergency)</ContactItem>
+          <ContactItemNumber>519-653-7700</ContactItemNumber>
+        </ContactRow>
+        <ContactRow>
+          <ContactItem>Waterloo Crime Stoppers</ContactItem>
+          <ContactItemNumber>1-800-22-8477</ContactItemNumber>
+        </ContactRow>
+        <ContactRow>
+          <ContactItem>WR Community Legal Services</ContactItem>
+          <ContactItemNumber>519-743-0254</ContactItemNumber>
+        </ContactRow>
+        <ContactRow>
+          <ContactItem>R.E.N.T</ContactItem>
+          <ContactItemNumber>519-579-3800</ContactItemNumber>
+        </ContactRow>
+      </ContactGroup>
+    </ContactContainer>
+  );
 }
