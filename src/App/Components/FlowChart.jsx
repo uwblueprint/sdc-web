@@ -136,6 +136,8 @@ export default class FlowChart extends React.Component {
           parentNode: values[1],
           parents: values[2] || [],
         });
+        console.log(this.state.parents);
+        console.log(this.state.parentNode);
       })
       .catch(({ response }) => {
         if (!response) {
@@ -188,31 +190,34 @@ export default class FlowChart extends React.Component {
   renderBreadcrumbs() {
     const { parents } = this.state;
     const { flowchartId } = this.props.match.params;
-    return parents.map((parent, index, arr) => {
-      let suffix = '';
-      let arrow = '  >  ';
-      if (index !== 0) {
-        suffix = `/node/${parents[index - 1].id}`;
-      }
-      if (parents.length === 1 || parents.length === index + 1) {
-        arrow = null;
-      }
-      return (
-        <span
-          key={index}
-          onClick={() =>
-            this.props.history.push(`/flowchart/${flowchartId}${suffix}`)
-          }
-        >
-          <span style={{ textDecoration: 'underline' }}>
-            {parent.next_question}
-          </span>
-          {arrow}
+    let suffix = '';
+    let arrow = '  >  ';
+    return (
+      <span>
+        <span onClick={() => this.props.history.push(`/`)}>
+          <span style={{ textDecoration: 'underline' }}>Home</span>
         </span>
-      );
-    });
+        {parents.map((parent, index, arr) => {
+          if (index !== 0) {
+            suffix = `/node/${parents[index - 1].id}`;
+          }
+          return (
+            <span
+              key={index}
+              onClick={() =>
+                this.props.history.push(`/flowchart/${flowchartId}${suffix}`)
+              }
+            >
+              {arrow}
+              <span style={{ textDecoration: 'underline' }}>
+                {parent.next_question}
+              </span>
+            </span>
+          );
+        })}
+      </span>
+    );
   }
-
   renderHeader() {
     const { flowchartNodes } = this.state;
     return (
