@@ -136,8 +136,6 @@ export default class FlowChart extends React.Component {
           parentNode: values[1],
           parents: values[2] || [],
         });
-        console.log(this.state.parents);
-        console.log(this.state.parentNode);
       })
       .catch(({ response }) => {
         if (!response) {
