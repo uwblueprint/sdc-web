@@ -208,7 +208,7 @@ export default class FlowChart extends React.Component {
             >
               {arrow}
               <span style={{ textDecoration: 'underline' }}>
-                {parent.next_question}
+                {parent.breadcrumb_title}
               </span>
             </span>
           );
@@ -221,7 +221,9 @@ export default class FlowChart extends React.Component {
     return (
       <QuestionContainer>
         <Question>
-          {flowchartNodes.length !== 0 ? flowchartNodes[0].next_question : null}
+          {flowchartNodes.length !== 0
+            ? flowchartNodes[0].breadcrumb_title
+            : null}
         </Question>
       </QuestionContainer>
     );
