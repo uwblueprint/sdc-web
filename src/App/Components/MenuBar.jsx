@@ -82,7 +82,7 @@ export default function MenuBar(props) {
     >
       <MobileList>
         {[
-          { title: 'Homepage', link: '', openMethod: '_self' },
+          { title: 'Homepage', link: '/', openMethod: '_self' },
           {
             title: 'About Us',
             link: 'http://www.waterlooregion.org/content/about-us',
@@ -120,7 +120,7 @@ export default function MenuBar(props) {
 
   const renderDesktopNav = () => {
     return [
-      { title: 'Homepage', link: '', openMethod: '_self' },
+      { title: 'Homepage', link: '/', openMethod: '_self' },
       {
         title: 'About Us',
         link: 'http://www.waterlooregion.org/content/about-us',
