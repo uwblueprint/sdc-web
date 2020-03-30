@@ -36,11 +36,12 @@ This project was started in Fall 2019 and is currently in development.
 **Designer:** Brandon Law
 
 **Developers:**
-* Ainley Pena
-* Faizaan Madhani
-* Nim Wijetunga
-* Patrick Du
-* Stephanie Xu
+
+- Ainley Pena
+- Faizaan Madhani
+- Nim Wijetunga
+- Patrick Du
+- Stephanie Xu
 
 ## Onboarding
 
@@ -68,4 +69,48 @@ REACT_APP_API_URL=http://localhost:5000
 
 ```
 npm start
+```
+
+### Deployment
+
+#### Initial Deployment
+
+This app can be best deployed using Heroku. Currently, it is running [here](https://guarded-plains-51025.herokuapp.com). For a new deployment, begin by setting up Heroku account [here](https://heroku.com) and installing the Heroku CLI [here](https://devcenter.heroku.com/articles/heroku-cli).
+
+Then, login:
+
+```
+heroku login
+```
+
+Inside the project folder, to create a new heroku project:
+
+```
+heroku create
+```
+
+This project is built using the Heroku Buildpack for Create-React-App found [here](https://github.com/mars/create-react-app-buildpack). Set it during initial deployment:
+
+```
+heroku buildpacks:set --buildpack mars/create-react-app
+```
+
+Then, push:
+
+```
+git add .
+git commit -m "<Add a commit message here>"
+git push heroku master
+heroku open
+```
+
+#### Subsequent Deployments
+
+For all future deployments, just push to Heroku using Git:
+
+```
+git add .
+git commit -m "<Add a commit message here>"
+git push heroku master
+heroku open
 ```
