@@ -12,17 +12,18 @@ import { Box, Divider } from '@material-ui/core';
 import { ArrowBackIos } from '@material-ui/icons';
 import MenuBar from './MenuBar';
 import { QuestionContainer, Question, Content } from './Home';
+import Contact from './Contact';
 
 const DesktopBreadcrumbs = styled(Grid)`
   padding-top: 30px;
-  @media (max-width: 576px) {
+  @media (max-width: 600px) {
     display: none;
   }
 `;
 
 const MobileBreadcrumb = styled(Grid)`
   text-align: center;
-  @media (min-width: 576px) {
+  @media (min-width: 600px) {
     display: none;
   }
 `;
@@ -34,6 +35,35 @@ const MobileBreadcrumbItems = styled(Grid)`
 
 const StyledArrowBackIos = styled(ArrowBackIos)`
   font-size: 16px;
+`;
+
+const FooterHeading = styled.div`
+  font-family: PT Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 19px;
+  line-height: 25px;
+  padding-bottom: 1%;
+`;
+
+const FooterContainer = styled.div`
+  padding-top: 40px;
+`;
+
+const FooterReturnContainer = styled.div`
+  padding-bottom: 40px;
+`;
+
+const FooterLink = styled.a`
+  font-family: PT Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 21px;
+  text-decoration-line: underline;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export default class FlowChart extends React.Component {
@@ -173,10 +203,8 @@ export default class FlowChart extends React.Component {
             <DesktopBreadcrumbs>{this.renderBreadcrumbs()}</DesktopBreadcrumbs>
             <div>{this.renderHeader()}</div>
             <div>{this.renderCards()}</div>
-            {this.isLastNode() && (
-              <button onClick={() => this.routeToHome()}> Go Home </button>
-            )}
           </div>
+          {this.renderFooter()}
         </Content>
       </div>
     );
@@ -231,5 +259,24 @@ export default class FlowChart extends React.Component {
         </Box>
       );
     });
+  }
+
+  renderFooter() {
+    return (
+      <FooterContainer>
+        {this.isLastNode() && (
+          <FooterReturnContainer>
+            <FooterHeading>
+              Didn't find what you were looking for?
+            </FooterHeading>
+            <FooterLink onClick={() => this.routeToHome()}>
+              Back To Homepage
+            </FooterLink>
+          </FooterReturnContainer>
+        )}
+        <FooterHeading>Contact Information</FooterHeading>
+        <Contact />
+      </FooterContainer>
+    );
   }
 }
