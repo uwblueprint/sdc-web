@@ -177,7 +177,7 @@ export default function MenuBar(props) {
           </MobileIconButton>
         </MobileToolbar>
         <DesktopToolbar container direction="row" alignItems="center">
-          <Grid item sm={2} md={2} item justify="center">
+          <Grid item sm={2} md={2} justify="center">
             <img
               src={Icon}
               onClick={() => {
