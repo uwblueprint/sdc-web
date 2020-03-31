@@ -15,13 +15,15 @@ import { Menu } from '@material-ui/icons';
 import Icon from '../../assets/SocialDevelopmentCentre_Logo_WhiteOnBlack_1.png';
 
 const IconSize = {
-  height: 60,
+  marginTop: 10,
+  height: 50,
   width: 'auto',
 };
 
 const DrawerWorkAround = {
   position: 'relative',
   zIndex: 1400,
+  fontFamily: 'Arial',
 };
 
 const MobileToolbar = styled(Toolbar)`
@@ -45,7 +47,7 @@ const MobileIconButton = styled(IconButton)`
 `;
 
 const MobileList = styled(List)`
-  padding-top: 0px;
+  padding-top: 60px;
   padding-bottom: 0px;
   @media (max-width: 600px) {
     margin-top: 0px;
@@ -158,20 +160,32 @@ export default function MenuBar(props) {
 
   return (
     <React.Fragment>
-      <AppBar
-        position="relative"
-        style={(DrawerWorkAround, { fontFamily: 'Arial' })}
-      >
+      <AppBar position="relative" style={DrawerWorkAround}>
         <MobileToolbar>
-          <img src={Icon} style={IconSize} alt="" />
+          <img
+            button
+            src={Icon}
+            onClick={() => {
+              window.open('http://www.waterlooregion.org/', '_blank');
+            }}
+            style={IconSize}
+            alt=""
+          />
           <MobileIconButton edge="end" color="inherit" aria-label="menu">
             <Menu onClick={toggleDrawer()}></Menu>
             {/* <Menu onClick={toggleDrawer('top', true)}></Menu> */}
           </MobileIconButton>
         </MobileToolbar>
         <DesktopToolbar container direction="row" alignItems="center">
-          <Grid item sm={2} md={2}>
-            <img src={Icon} style={IconSize} alt="" />
+          <Grid item sm={2} md={2} justify="center">
+            <img
+              src={Icon}
+              onClick={() => {
+                window.open('http://www.waterlooregion.org/', '_blank');
+              }}
+              style={IconSize}
+              alt=""
+            />
           </Grid>
           {renderDesktopNav()}
         </DesktopToolbar>

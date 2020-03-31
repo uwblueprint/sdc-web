@@ -90,7 +90,7 @@ export default class Home extends React.Component {
       <Banner>
         <HeaderTitle>
           Welcome to the{' '}
-          <BoldedWord>Social Development Center Waterloo Region.</BoldedWord>
+          <BoldedWord>Social Development Centre Waterloo Region.</BoldedWord>
         </HeaderTitle>
         <HeaderDescription>
           Information and training resource for community level social services
