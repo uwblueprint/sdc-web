@@ -3,6 +3,18 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
+const NodeIconSize = {
+  width: 48,
+  height: 48,
+  paddingTop: 16
+};
+
+const NodeIconContainer = styled.div`
+  display: grid;  
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-column-gap: 30px;
+`;
+
 const Content = styled.div`
   display: flex;
   min-height: 160px;
@@ -46,6 +58,7 @@ const ArrowIcon = styled(ArrowForwardIosIcon)`
 `;
 
 export default class Card extends React.Component {
+
   render() {
     const { onClick } = this.props;
     return (
@@ -78,6 +91,9 @@ export default class Card extends React.Component {
         >
           <Title>{this.props.title}</Title>
           <Description>{this.props.description}</Description>
+          <div >
+            {this.IconsExist(this.props.flowchart_icons)}
+          </div>
         </div>
         {onClick && (
           <ButtonDiv>
@@ -87,6 +103,23 @@ export default class Card extends React.Component {
       </Content>
     );
   }
+
+  IconsExist(flowchart_icons) {
+
+    if (flowchart_icons) {
+
+      const icons = flowchart_icons.map(icon => <img key={icon.id} alt={icon.id} src={icon.url} style={NodeIconSize} />);
+
+      return (
+        <NodeIconContainer>
+          {icons}
+        </NodeIconContainer>
+      );
+    } else {
+      return null
+    }
+  }
+
 }
 
 Card.propTypes = {
@@ -94,4 +127,5 @@ Card.propTypes = {
   title: PropTypes.string,
   description: PropTypes.string,
   onClick: PropTypes.func,
+  flowchart_icons: PropTypes.array,
 };
