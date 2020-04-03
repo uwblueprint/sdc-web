@@ -256,14 +256,24 @@ export default class FlowChart extends React.Component {
 
   renderCards() {
     const { flowchartNodes } = this.state;
-    return flowchartNodes.map(({ id, header, text, is_leaf }) => {
-      const onClick = is_leaf ? null : () => this.routeToNextNode(id);
-      return (
-        <Box key={id}>
-          <Card id={id} title={header} description={text} onClick={onClick} />
-        </Box>
-      );
-    });
+
+    return flowchartNodes.map(
+      ({ id, header, text, flowchart_icons, is_leaf }) => {
+        const onClick = is_leaf ? null : () => this.routeToNextNode(id);
+
+        return (
+          <Box key={id}>
+            <Card
+              id={id}
+              title={header}
+              description={text}
+              flowchart_icons={flowchart_icons}
+              onClick={onClick}
+            />
+          </Box>
+        );
+      }
+    );
   }
 
   renderFooter() {
