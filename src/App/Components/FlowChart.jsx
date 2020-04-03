@@ -246,9 +246,7 @@ export default class FlowChart extends React.Component {
     return (
       <QuestionContainer>
         <Question>
-          {flowchartNodes.length !== 0
-            ? flowchartNodes[0].breadcrumb_title
-            : null}
+          {flowchartNodes.length !== 0 ? flowchartNodes[0].next_question : null}
         </Question>
       </QuestionContainer>
     );
