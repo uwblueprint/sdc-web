@@ -93,8 +93,8 @@ export default class Home extends React.Component {
           <BoldedWord>Social Development Centre Waterloo Region.</BoldedWord>
         </HeaderTitle>
         <HeaderDescription>
-          Information and training resource for community level social services
-          and programs.
+          The Social Development Center is a learning organization whose vision is to ensure fair and equal access
+          to social, economic and political life for everyone in the Waterloo Region.
         </HeaderDescription>
       </Banner>
     );
