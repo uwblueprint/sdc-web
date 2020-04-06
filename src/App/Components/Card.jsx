@@ -41,6 +41,7 @@ const Description = styled.div`
   line-height: 20px;
   letter-spacing: 0.01em;
   color: #000000;
+  white-space: pre-wrap;
 `;
 
 const ButtonDiv = styled.div`
