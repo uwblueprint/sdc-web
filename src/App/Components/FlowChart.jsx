@@ -47,6 +47,7 @@ const FooterHeading = styled.div`
 `;
 
 export const FooterContainer = styled.div`
+  font-family: Arial;
   padding-top: 40px;
 `;
 
