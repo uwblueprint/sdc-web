@@ -27,6 +27,10 @@ const HeaderTitle = styled.div`
   line-height: 29px;
   letter-spacing: 1px;
   padding-bottom: 18px;
+  @media (min-width: 600px) {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
 `;
 export const QuestionContainer = styled.div`
   display: flex;
@@ -51,10 +55,18 @@ const HeaderDescription = styled.div`
   line-height: 23px;
   color: #ffffff;
   letter-spacing: 1px;
+  @media (min-width: 600px) {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
 `;
 
 export const Content = styled.div`
   padding: 0 16px 0 16px;
+  @media (min-width: 600px) {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
 `;
 
 export default class Home extends React.Component {
