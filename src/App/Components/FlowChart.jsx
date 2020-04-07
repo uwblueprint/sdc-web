@@ -213,7 +213,6 @@ export default class FlowChart extends React.Component {
   renderBreadcrumbs() {
     const { parents } = this.state;
     const { flowchartId } = this.props.match.params;
-    let suffix = '';
     let arrow = '  >  ';
     return (
       <span>
@@ -221,6 +220,7 @@ export default class FlowChart extends React.Component {
           <span style={{ textDecoration: 'underline' }}>Home</span>
         </span>
         {parents.map((parent, index, arr) => {
+          let suffix = '';
           if (index !== 0) {
             suffix = `/node/${parents[index - 1].id}`;
           }

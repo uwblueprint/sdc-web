@@ -11,8 +11,9 @@ const NodeIconSize = {
 
 const NodeIconContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 40px 40px 40px;
   grid-column-gap: 30px;
+  margin-bottom: 13.4px;
 `;
 
 const Content = styled.div`
@@ -42,6 +43,7 @@ const Description = styled.div`
   letter-spacing: 0.01em;
   color: #000000;
   white-space: pre-wrap;
+  margin-bottom: 13.4px;
 `;
 
 const ButtonDiv = styled.div`
@@ -61,6 +63,7 @@ const ArrowIcon = styled(ArrowForwardIosIcon)`
 export default class Card extends React.Component {
   render() {
     const { onClick } = this.props;
+    let width = onClick ? '80%' : '100%';
     return (
       <Content onClick={onClick}>
         {/* <Grid
@@ -84,7 +87,7 @@ export default class Card extends React.Component {
         </Grid> */}
         <div
           style={{
-            width: '80%',
+            width: width,
             whitespace: 'nowrap',
             display: 'inline-block',
           }}

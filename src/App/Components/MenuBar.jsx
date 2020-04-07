@@ -84,7 +84,11 @@ export default function MenuBar(props) {
     >
       <MobileList>
         {[
-          { title: 'Homepage', link: '/', openMethod: '_self' },
+          {
+            title: 'Homepage',
+            link: 'http://www.waterlooregion.org/',
+            openMethod: '_blank',
+          },
           {
             title: 'About Us',
             link: 'http://www.waterlooregion.org/content/about-us',
