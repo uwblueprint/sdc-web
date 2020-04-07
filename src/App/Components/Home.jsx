@@ -4,6 +4,8 @@ import MenuBar from './MenuBar.jsx';
 import { getFlowcharts } from '../../utils/FlowchartApi';
 import styled from 'styled-components';
 import Box from '@material-ui/core/Box';
+import { FooterContainer } from './FlowChart';
+import Contact from './Contact';
 
 const Banner = styled.div`
   background: #09433c;
@@ -91,6 +93,7 @@ export default class Home extends React.Component {
           <Content>
             {this.renderQuestion()}
             {this.renderCards()}
+            {this.renderFooter()}
           </Content>
         </div>
       </div>
@@ -134,5 +137,13 @@ export default class Home extends React.Component {
         />
       </Box>
     ));
+  }
+
+  renderFooter() {
+    return (
+      <FooterContainer>
+        <Contact />
+      </FooterContainer>
+    );
   }
 }

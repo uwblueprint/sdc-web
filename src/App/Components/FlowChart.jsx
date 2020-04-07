@@ -46,7 +46,7 @@ const FooterHeading = styled.div`
   padding-bottom: 1%;
 `;
 
-const FooterContainer = styled.div`
+export const FooterContainer = styled.div`
   padding-top: 40px;
 `;
 
