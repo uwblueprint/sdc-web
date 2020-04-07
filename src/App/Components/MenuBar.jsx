@@ -87,7 +87,7 @@ export default function MenuBar(props) {
           {
             title: 'Homepage',
             link: 'http://www.waterlooregion.org/',
-            openMethod: '_blank'
+            openMethod: '_blank',
           },
           {
             title: 'About Us',
